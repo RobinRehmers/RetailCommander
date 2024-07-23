@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\coden\\C#\\RetailCommander\\RetailCommander\\RetailCommanderLibrary\\RetailCommanderLibrary.csproj": {}
+    "D:\\coden\\C#\\RetailCommander\\RetailCommanderLibrary\\RetailCommanderLibrary.csproj": {}
   },
   "projects": {
-    "D:\\coden\\C#\\RetailCommander\\RetailCommander\\RetailCommanderLibrary\\RetailCommanderLibrary.csproj": {
+    "D:\\coden\\C#\\RetailCommander\\RetailCommanderLibrary\\RetailCommanderLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\coden\\C#\\RetailCommander\\RetailCommander\\RetailCommanderLibrary\\RetailCommanderLibrary.csproj",
+        "projectUniqueName": "D:\\coden\\C#\\RetailCommander\\RetailCommanderLibrary\\RetailCommanderLibrary.csproj",
         "projectName": "RetailCommanderLibrary",
-        "projectPath": "D:\\coden\\C#\\RetailCommander\\RetailCommander\\RetailCommanderLibrary\\RetailCommanderLibrary.csproj",
+        "projectPath": "D:\\coden\\C#\\RetailCommander\\RetailCommanderLibrary\\RetailCommanderLibrary.csproj",
         "packagesPath": "C:\\Users\\robin\\.nuget\\packages\\",
-        "outputPath": "D:\\coden\\C#\\RetailCommander\\RetailCommander\\RetailCommanderLibrary\\obj\\",
+        "outputPath": "D:\\coden\\C#\\RetailCommander\\RetailCommanderLibrary\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Programme\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -53,9 +53,13 @@
               "target": "Package",
               "version": "[2.1.35, )"
             },
-            "System.Data.SQLite": {
+            "Microsoft.Data.Sqlite": {
               "target": "Package",
-              "version": "[1.0.118, )"
+              "version": "[8.0.7, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.0, )"
             }
           },
           "imports": [
