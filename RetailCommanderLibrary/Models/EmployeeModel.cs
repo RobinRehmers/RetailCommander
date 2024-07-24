@@ -10,7 +10,7 @@ namespace RetailCommanderLibrary.Models
     {
         public int EmployeeID { get; set; }
         public string Name { get; set; }
-        public int HoursPerMonth { get; set; }
-        public int Provision { get; set; }
+        public int HoursPerWeek { get; set; }
+        public int Commission { get; set; }
     }
 }

@@ -8,7 +8,6 @@ namespace RetailCommanderLibrary.Models
 {
     public class MonthlyTargetModel
     {
-        public string MonthYear { get; set; }
         public double TargetAmount { get; set; }
         public double CurrentSalesAmount { get; set; }
     }

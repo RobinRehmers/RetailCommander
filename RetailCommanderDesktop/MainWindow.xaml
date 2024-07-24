@@ -5,8 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RetailCommanderDesktop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="RetailCommander" Height="691" Width="1200" WindowStyle="ToolWindow" ResizeMode="NoResize" Topmost="True" WindowStartupLocation="CenterScreen">
+
+    <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+        <Grid.RowDefinitions>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="125*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="544*"/>
+            <ColumnDefinition Width="131*"/>
+        </Grid.ColumnDefinitions>
+
+        <ProgressBar x:Name="salesProgressBar" Margin="27,90,27,523" BorderThickness="2,2,2,2" Foreground="#FFE71414" Grid.ColumnSpan="6"/>
+
+        <DataGrid x:Name="employeeDataGrid" Margin="27,217,27,337" IsReadOnly="True" Grid.ColumnSpan="6" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Hours" Binding="{Binding Hours}" Width="*"/>
+                <DataGridTextColumn Header="Commission" Binding="{Binding Commission}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
 
     </Grid>
 </Window>
