@@ -21,6 +21,7 @@ namespace RetailCommanderDesktop
             services.AddTransient<MainWindow>();
             services.AddTransient<AddEmployeeForm>();
             services.AddTransient<DeleteEmployeeForm>();
+            services.AddTransient<ConfigurationForm>();
             services.AddTransient<ISqliteDataAccess, SqliteDataAccess>();
             services.AddSingleton<SqliteData>();
 
