@@ -59,12 +59,6 @@ namespace RetailCommanderLibrary.Data
             }
         }
 
-        //public List<int> GetEmployeeIdsToDelete()
-        //{
-        //    string sql = "SELECT Id FROM Employees WHERE /* your condition here */";
-        //    return _db.LoadData<int, dynamic>(sql, new { }, ConnectionStringName);
-        //}
-
         public void DeleteEmployees(List<int> employeeIds)
         {
             foreach (var employeeId in employeeIds)
