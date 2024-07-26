@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using RetailCommanderLibrary.Data;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace RetailCommanderDesktop
 {
@@ -44,10 +45,21 @@ namespace RetailCommanderDesktop
                 salesProgressBar.Value = monthlyTarget.CurrentSalesAmount;
             }
         }
-        private void LoadEmployeeData()
+        public void LoadEmployeeData()
         {
             var employees = _dataAccess.GetEmployees();
             employeeDataGrid.ItemsSource = employees;
+        }
+
+        private void openEmployeeForm_Click(object sender, RoutedEventArgs e)
+        {
+            var addEmployeeForm = new AddEmployeeForm(_dataAccess, this);
+            addEmployeeForm.Show();
+        }
+
+        private void removeemployee_Click(object sender, RoutedEventArgs e)
+        {
+           
         }
     }
 

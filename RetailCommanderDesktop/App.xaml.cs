@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RetailCommanderLibrary.Data;
+using RetailCommanderLibrary.Database;
 using System.Configuration;
 using System.Data;
 using System.IO;
@@ -20,7 +22,9 @@ namespace RetailCommanderDesktop
 
             var services = new ServiceCollection();
             services.AddTransient<MainWindow>();
-
+            services.AddTransient<AddEmployeeForm>();
+            services.AddTransient<ISqliteDataAccess, SqliteDataAccess>();
+            services.AddSingleton<SqliteData>();
 
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())

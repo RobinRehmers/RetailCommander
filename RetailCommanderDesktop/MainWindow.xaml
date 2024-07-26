@@ -22,13 +22,16 @@
 
         <ProgressBar x:Name="salesProgressBar" Margin="27,90,27,523" BorderThickness="2,2,2,2" Foreground="#FFE71414" Grid.ColumnSpan="6"/>
 
-        <DataGrid x:Name="employeeDataGrid" Margin="27,217,27,337" IsReadOnly="True" Grid.ColumnSpan="6" AutoGenerateColumns="False">
+        <DataGrid x:Name="employeeDataGrid" Margin="27,306,27,141" IsReadOnly="True" Grid.ColumnSpan="6" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
-                <DataGridTextColumn Header="Hours" Binding="{Binding Hours}" Width="*"/>
+                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="*"/>
+                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="*"/>
+                <DataGridTextColumn Header="Hours per week" Binding="{Binding HoursPerWeek}" Width="*"/>
                 <DataGridTextColumn Header="Commission" Binding="{Binding Commission}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Button x:Name="addemployee"  Padding="5" Grid.Column="2" Content="Add employee" HorizontalAlignment="Left" Margin="28,255,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Height="34" Width="160" Click="openEmployeeForm_Click"/>
+        <Button x:Name="removeemployee" Padding="5" Grid.Column="4" Content="Remove employee" HorizontalAlignment="Left" Margin="20,255,0,0" VerticalAlignment="Top" Height="34" Width="182" Click="removeemployee_Click"/>
 
 
     </Grid>

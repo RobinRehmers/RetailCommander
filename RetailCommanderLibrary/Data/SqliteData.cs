@@ -29,8 +29,27 @@ namespace RetailCommanderLibrary.Data
 
         public List<EmployeeModel> GetEmployees()
         {
-            string sql = "SELECT Name, HoursPerWeek, Commission FROM Employees";
+            string sql = "SELECT firstName, lastName, hoursPerWeek, commission FROM Employees";
             return _db.LoadData<EmployeeModel, dynamic>(sql, new { }, ConnectionStringName);
+        }
+
+        public void AddEmployee(string firstName, string lastName, int hoursPerWeek, int commission)
+        {
+
+            string sql = @"select 1 from Employees where firstName = @firstName and lastName = @lastName;";
+            int results = _db.LoadData<dynamic, dynamic>(sql, new { firstName, lastName },
+                                                                       ConnectionStringName).Count();
+
+            if (results == 0)
+            {
+                sql = @"insert into Employees (firstName, lastName, hoursPerWeek, commission)
+                  values (@firstName, @lastName, @hoursPerWeek,@commission);";
+                _db.SaveData(sql, new { firstName, lastName, hoursPerWeek, commission }, ConnectionStringName);
+            }
+            else
+            {
+                throw new Exception("Employee already exists");
+            }
         }
     }
 }
