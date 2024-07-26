@@ -21,6 +21,9 @@ namespace RetailCommanderLibrary.Database
             _config = config;
         }
 
+        /// <summary>
+        /// Function to load data from the SQLite database.
+        /// </summary>
         public List<T> LoadData<T, U>(string sqlStatement,
             U parameters,
             string connectionStringName)
@@ -34,6 +37,9 @@ namespace RetailCommanderLibrary.Database
             }
         }
 
+        /// <summary>
+        /// Function to save data to the SQLite database.
+        /// </summary>
         public void SaveData<T>(string sqlStatement,
             T parameters,
             string connectionStringName)

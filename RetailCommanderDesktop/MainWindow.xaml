@@ -28,7 +28,6 @@
                 <DataGridTextColumn Header="Commission" Binding="{Binding Commission}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="addemployee"  Padding="5" Grid.Column="2" Content="Add employee" HorizontalAlignment="Left" Margin="28,255,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Height="34" Width="160" Click="AddEmployeeForm_Click"/>
-        <Button x:Name="removeemployee" Padding="5" Grid.Column="4" Content="Remove employee" HorizontalAlignment="Left" Margin="20,255,0,0" VerticalAlignment="Top" Height="34" Width="182" Click="Removeemployee_Click"/>
+        <Button x:Name="ConfigurationBtn" Content="Button" Grid.ColumnSpan="5" HorizontalAlignment="Left" Height="51" Margin="27,250,0,0" VerticalAlignment="Top" Width="163" Click="ConfigurationForm_Click"/>
     </Grid>
 </Window>

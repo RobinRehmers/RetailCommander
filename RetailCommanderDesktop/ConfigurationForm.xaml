@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RetailCommanderDesktop"
         mc:Ignorable="d"
-        Title="ConfigurationForm" Height="450" Width="800">
-    <Grid>
-        
+        Title="ConfigurationForm" Height="300" Width="400">
+    <Grid Margin="0,0,0,-6">
+        <Button x:Name="addemployee"  Padding="5" Content="Add employee" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="34" Width="160" Click="AddEmployeeForm_Click"/>
+        <Button x:Name="removeemployee" Padding="5" Content="Remove employee" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top" Height="34" Width="182" Click="Removeemployee_Click"/>
     </Grid>
 </Window>

@@ -21,6 +21,9 @@ namespace RetailCommanderDesktop
         private SqliteData _dataAccess;
         private IConfiguration _config;
 
+        /// <summary>
+        /// Constructor for the main window.
+        /// </summary>
         public MainWindow(IConfiguration config)
         {
             InitializeComponent();
@@ -29,13 +32,18 @@ namespace RetailCommanderDesktop
             Loaded += MainWindow_Loaded;
         }
 
+        /// <summary>
+        /// We load the monthly target and employee data from the database when the window is loaded.
+        /// </summary>
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             LoadMonthlyTarget();
             LoadEmployeeData();
         }
 
-
+        /// <summary>
+        /// We load the monthly target from the database.
+        /// </summary>
         private void LoadMonthlyTarget()
         {
             var monthlyTarget = _dataAccess.GetMonthlyTarget();
@@ -46,23 +54,24 @@ namespace RetailCommanderDesktop
                 salesProgressBar.Value = monthlyTarget.CurrentSalesAmount;
             }
         }
+
+        /// <summary>
+        /// We load the employee data from the database.
+        /// </summary>
         public void LoadEmployeeData()
         {
             var employees = _dataAccess.GetEmployees();
             employeeDataGrid.ItemsSource = employees;
         }
 
-        private void AddEmployeeForm_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// We open the configuration form when the configuration button is clicked.
+        /// </summary>
+        private void ConfigurationForm_Click(object sender, RoutedEventArgs e)
         {
-            var addEmployeeForm = new AddEmployeeForm(_dataAccess, this);
-            addEmployeeForm.Show();
+            var configurationForm = new ConfigurationForm(_dataAccess, this);
+            configurationForm.Show();
         }
 
-        private void Removeemployee_Click(object sender, RoutedEventArgs e)
-        {
-            var DeleteEmployeeForm = new DeleteEmployeeForm(_dataAccess, this);
-            DeleteEmployeeForm.ShowDialog();
-        }
     }
-
 }

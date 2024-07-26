@@ -20,22 +20,32 @@ namespace RetailCommanderDesktop
     public partial class DeleteEmployeeForm : Window
     {
         private readonly SqliteData _dataAccess;
-        private readonly MainWindow _mainWindow;
+        private readonly ConfigurationForm _configurationForm;
 
-        public DeleteEmployeeForm(SqliteData dataAccess, MainWindow mainWindow)
+        /// <summary>
+        /// The constructor for the DeleteEmployeeForm.
+        /// </summary>
+        public DeleteEmployeeForm(SqliteData dataAccess, ConfigurationForm configurationForm)
         {
             InitializeComponent();
             _dataAccess = dataAccess;
-            _mainWindow = mainWindow;
+            _configurationForm = configurationForm;
             LoadEmployeeData();
         }
 
+        /// <summary>
+        /// We load the employee data from the database and bind it to the ListBox.
+        /// </summary>
         private void LoadEmployeeData()
         {
             var employees = _dataAccess.GetEmployees();
             employeeListBox.ItemsSource = employees.Select(e => new EmployeeViewModel { Employee = e, FullName = $"{e.FirstName} {e.LastName}" }).ToList();
         }
 
+        /// <summary>
+        /// The DeleteSelectedEmployees_Click method deletes the selected employees from the database. We get the selected employees from the GetSelectedEmployeeIdsFromUI method.
+        /// We also update the employees in the main window with the LoadEmployeeData method.
+        /// </summary>
         private void DeleteSelectedEmployees_Click(object sender, RoutedEventArgs e)
         {
             List<int> selectedEmployeeIds = GetSelectedEmployeeIdsFromUI();
@@ -44,7 +54,7 @@ namespace RetailCommanderDesktop
             {
                 _dataAccess.DeleteEmployees(selectedEmployeeIds);
                 MessageBox.Show("Selected employees have been deleted.");
-                _mainWindow.LoadEmployeeData();
+                _configurationForm.LoadEmployeeData();
                 this.Close();
             }
             else
@@ -53,6 +63,9 @@ namespace RetailCommanderDesktop
             }
         }
 
+        /// <summary>
+        /// We get the selected employee IDs from the ListBox.
+        /// </summary>
         private List<int> GetSelectedEmployeeIdsFromUI()
         {
             List<int> selectedIds = new List<int>();
