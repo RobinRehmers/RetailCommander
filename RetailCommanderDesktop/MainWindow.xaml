@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RetailCommanderDesktop"
         mc:Ignorable="d"
-        Title="RetailCommander" Height="691" Width="1200" WindowStyle="ToolWindow" ResizeMode="NoResize" Topmost="True" WindowStartupLocation="CenterScreen">
+        Title="RetailCommander" Height="691" Width="1200" WindowStyle="ToolWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
     <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
         <Grid.RowDefinitions>
@@ -19,9 +19,7 @@
             <ColumnDefinition Width="544*"/>
             <ColumnDefinition Width="131*"/>
         </Grid.ColumnDefinitions>
-
         <ProgressBar x:Name="salesProgressBar" Margin="27,90,27,523" BorderThickness="2,2,2,2" Foreground="#FFE71414" Grid.ColumnSpan="6"/>
-
         <DataGrid x:Name="employeeDataGrid" Margin="27,306,27,141" IsReadOnly="True" Grid.ColumnSpan="6" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="*"/>
@@ -30,9 +28,7 @@
                 <DataGridTextColumn Header="Commission" Binding="{Binding Commission}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="addemployee"  Padding="5" Grid.Column="2" Content="Add employee" HorizontalAlignment="Left" Margin="28,255,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Height="34" Width="160" Click="openEmployeeForm_Click"/>
-        <Button x:Name="removeemployee" Padding="5" Grid.Column="4" Content="Remove employee" HorizontalAlignment="Left" Margin="20,255,0,0" VerticalAlignment="Top" Height="34" Width="182" Click="removeemployee_Click"/>
-
-
+        <Button x:Name="addemployee"  Padding="5" Grid.Column="2" Content="Add employee" HorizontalAlignment="Left" Margin="28,255,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Height="34" Width="160" Click="AddEmployeeForm_Click"/>
+        <Button x:Name="removeemployee" Padding="5" Grid.Column="4" Content="Remove employee" HorizontalAlignment="Left" Margin="20,255,0,0" VerticalAlignment="Top" Height="34" Width="182" Click="Removeemployee_Click"/>
     </Grid>
 </Window>

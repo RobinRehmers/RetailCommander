@@ -14,11 +14,11 @@
         </Grid.ColumnDefinitions>
         <Label Content="First Name:" HorizontalAlignment="Left" Height="30" Margin="10,15,0,0" VerticalAlignment="Top" Width="79"/>
         <Label Content="Hours:" HorizontalAlignment="Left" Height="26" Margin="11,81,0,0" VerticalAlignment="Top" Width="50"/>
-        <TextBox x:Name="firstnamebox" HorizontalAlignment="Left" Height="24" Margin="88,17,0,0" TextWrapping="Wrap" Text="Please enter a first name" VerticalAlignment="Top" Width="157" TextChanged="TextBox_TextChanged" TabIndex="0"/>
+        <TextBox x:Name="firstnamebox" HorizontalAlignment="Left" Height="24" Margin="88,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="157" TextChanged="TextBox_TextChanged" TabIndex="0" Text="Please enter a first name"/>
         <TextBox x:Name="hoursbox" HorizontalAlignment="Left" Height="24" Margin="88,84,0,0" TextWrapping="Wrap" Text="Hours per week" VerticalAlignment="Top" Width="157" TextChanged="TextBox_TextChanged" TabIndex="2"/>
         <Button x:Name="AddEmployee" Content="Add new employee" HorizontalAlignment="Left" Height="25" Margin="17,129,0,0" VerticalAlignment="Top" Width="226" Click="AddEmployee_Click" TabIndex="3"/>
         <Label HorizontalAlignment="Left" Height="23" Margin="11,47,0,0" VerticalAlignment="Top" Width="72" Content="Last Name:"/>
-        <TextBox x:Name="lastnamebox" TextWrapping="Wrap" Text="Please enter a last name&#xA;" Margin="88,50,0,184" TabIndex="1"/>
+        <TextBox x:Name="lastnamebox" TextWrapping="Wrap" Text="Please enter a last name" Margin="88,50,0,184" TabIndex="1"/>
 
     </Grid>
 </Window>

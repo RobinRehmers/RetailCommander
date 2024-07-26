@@ -35,6 +35,7 @@ namespace RetailCommanderDesktop
             LoadEmployeeData();
         }
 
+
         private void LoadMonthlyTarget()
         {
             var monthlyTarget = _dataAccess.GetMonthlyTarget();
@@ -51,15 +52,16 @@ namespace RetailCommanderDesktop
             employeeDataGrid.ItemsSource = employees;
         }
 
-        private void openEmployeeForm_Click(object sender, RoutedEventArgs e)
+        private void AddEmployeeForm_Click(object sender, RoutedEventArgs e)
         {
             var addEmployeeForm = new AddEmployeeForm(_dataAccess, this);
             addEmployeeForm.Show();
         }
 
-        private void removeemployee_Click(object sender, RoutedEventArgs e)
+        private void Removeemployee_Click(object sender, RoutedEventArgs e)
         {
-           
+            var DeleteEmployeeForm = new DeleteEmployeeForm(_dataAccess, this);
+            DeleteEmployeeForm.ShowDialog();
         }
     }
 

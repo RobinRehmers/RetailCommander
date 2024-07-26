@@ -16,9 +16,6 @@ using System.Windows.Shapes;
 
 namespace RetailCommanderDesktop
 {
-    /// <summary>
-    /// Interaction logic for AddEmployeeForm.xaml
-    /// </summary>
     public partial class AddEmployeeForm : Window
     {
         private readonly SqliteData _dataAccess;

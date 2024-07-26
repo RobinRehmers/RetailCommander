@@ -9,9 +9,6 @@ using System.Windows;
 
 namespace RetailCommanderDesktop
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         public static ServiceProvider serviceProvider;
@@ -23,6 +20,7 @@ namespace RetailCommanderDesktop
             var services = new ServiceCollection();
             services.AddTransient<MainWindow>();
             services.AddTransient<AddEmployeeForm>();
+            services.AddTransient<DeleteEmployeeForm>();
             services.AddTransient<ISqliteDataAccess, SqliteDataAccess>();
             services.AddSingleton<SqliteData>();
 
@@ -33,8 +31,6 @@ namespace RetailCommanderDesktop
             IConfiguration config = builder.Build();
 
             services.AddSingleton(config);
-
-
 
             serviceProvider = services.BuildServiceProvider();
             var mainWindow = serviceProvider.GetService<MainWindow>();
