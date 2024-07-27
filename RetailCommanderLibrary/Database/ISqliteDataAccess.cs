@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 
 namespace RetailCommanderLibrary.Database
 {
-    /// <summary>
-    /// Interface for SQLite data access
-    /// </summary>
     public interface ISqliteDataAccess
     {
         List<T> LoadData<T, U>(string sqlStatement, U parameters, string connectionStringName);

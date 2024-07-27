@@ -49,9 +49,6 @@ namespace RetailCommanderLibrary.Data
             return _db.LoadData<EmployeeModel, dynamic>(sql, new { FirstName = firstName, LastName = lastName }, ConnectionStringName).FirstOrDefault();
         }
 
-        /// <summary>
-        /// We check if the employee exists in the database. If the employee does not exist, we add the employee data.
-        /// </summary>
         public void AddEmployee(string firstName, string lastName, int hoursPerWeek, int commission)
         {
 
