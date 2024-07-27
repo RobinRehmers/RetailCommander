@@ -23,9 +23,6 @@ namespace RetailCommanderDesktop
         private MainWindow _mainWindow;
         private IConfiguration _config;
 
-        /// <summary>
-        /// The constructor for the ConfigurationForm.
-        /// </summary>
         public ConfigurationForm(SqliteData dataAccess, MainWindow mainWindow)
         {
             InitializeComponent();
@@ -33,9 +30,6 @@ namespace RetailCommanderDesktop
             _mainWindow = mainWindow;
         }
 
-        /// <summary>
-        /// The constructor for the ConfigurationForm with IConfiguration.
-        /// </summary>
         public ConfigurationForm(IConfiguration config)
         {
             InitializeComponent();
@@ -44,25 +38,19 @@ namespace RetailCommanderDesktop
         }
 
         /// <summary>
-        /// The LoadEmployeeData method loads the employee data. This method is necessary to be able to load the employee data to the grid in real time after adding or removing an employee.
+        /// This method is necessary to be able to load the employee data to the grid in real time after adding or removing an employee.
         /// </summary>
         public void LoadEmployeeData()
         {
             _mainWindow.LoadEmployeeData();
         }
 
-        /// <summary>
-        /// The AddEmployeeForm_Click method opens the AddEmployeeForm.
-        /// </summary>
         private void AddEmployeeForm_Click(object sender, RoutedEventArgs e)
         {
             var addEmployeeForm = new AddEmployeeForm(_dataAccess, this);
             addEmployeeForm.Show();
         }
 
-        /// <summary>
-        /// The Removeemployee_Click method opens the DeleteEmployeeForm.
-        /// </summary>
         private void Removeemployee_Click(object sender, RoutedEventArgs e)
         {
             var DeleteEmployeeForm = new DeleteEmployeeForm(_dataAccess, this);
