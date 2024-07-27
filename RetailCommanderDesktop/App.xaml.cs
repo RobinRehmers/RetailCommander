@@ -15,7 +15,6 @@ namespace RetailCommanderDesktop
 
         /// <summary>
         /// Initializes a new instance of the App class. Adds services to the service collection and builds the service provider.
-        /// Transient services are created each time they are requested. Singleton services are created once and reused.
         /// </summary>
         protected override void OnStartup(StartupEventArgs e)
         {

@@ -52,9 +52,6 @@ namespace RetailCommanderDesktop
 
         }
 
-        /// <summary>
-        /// Adds an employee to the database.
-        /// </summary>
         private void AddEmployee_Click(object sender, RoutedEventArgs e)
         {
             try
