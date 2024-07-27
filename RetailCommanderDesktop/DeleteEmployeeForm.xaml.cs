@@ -22,9 +22,6 @@ namespace RetailCommanderDesktop
         private readonly SqliteData _dataAccess;
         private readonly ConfigurationForm _configurationForm;
 
-        /// <summary>
-        /// The constructor for the DeleteEmployeeForm.
-        /// </summary>
         public DeleteEmployeeForm(SqliteData dataAccess, ConfigurationForm configurationForm)
         {
             InitializeComponent();
@@ -34,7 +31,7 @@ namespace RetailCommanderDesktop
         }
 
         /// <summary>
-        /// We load the employee data from the database and bind it to the ListBox.
+        /// Load the employee data from the database and bind it to the ListBox.
         /// </summary>
         private void LoadEmployeeData()
         {

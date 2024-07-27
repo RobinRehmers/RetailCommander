@@ -21,9 +21,6 @@ namespace RetailCommanderDesktop
         private SqliteData _dataAccess;
         private IConfiguration _config;
 
-        /// <summary>
-        /// Constructor for the main window.
-        /// </summary>
         public MainWindow(IConfiguration config)
         {
             InitializeComponent();
@@ -41,9 +38,6 @@ namespace RetailCommanderDesktop
             LoadEmployeeData();
         }
 
-        /// <summary>
-        /// We load the monthly target from the database.
-        /// </summary>
         private void LoadMonthlyTarget()
         {
             var monthlyTarget = _dataAccess.GetMonthlyTarget();
@@ -55,18 +49,12 @@ namespace RetailCommanderDesktop
             }
         }
 
-        /// <summary>
-        /// We load the employee data from the database.
-        /// </summary>
         public void LoadEmployeeData()
         {
             var employees = _dataAccess.GetEmployees();
             employeeDataGrid.ItemsSource = employees;
         }
 
-        /// <summary>
-        /// We open the configuration form when the configuration button is clicked.
-        /// </summary>
         private void ConfigurationForm_Click(object sender, RoutedEventArgs e)
         {
             var configurationForm = new ConfigurationForm(_dataAccess, this);
