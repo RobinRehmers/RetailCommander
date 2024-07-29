@@ -8,7 +8,7 @@ namespace RetailCommanderLibrary.Models
 {
     public class MonthlyTargetModel
     {
-        public double TargetAmount { get; set; }
-        public double CurrentSalesAmount { get; set; }
+        public double MonthlyTarget { get; set; }
+        public double CurrentSales { get; set; }
     }
 }

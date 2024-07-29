@@ -44,8 +44,8 @@ namespace RetailCommanderDesktop.ViewModels
             var monthlyTarget = _dataAccess.GetMonthlyTarget();
             if (monthlyTarget != null)
             {
-                MonthlyTarget = monthlyTarget.TargetAmount;
-                CurrentSales = monthlyTarget.CurrentSalesAmount;
+                MonthlyTarget = monthlyTarget.MonthlyTarget;
+                CurrentSales = monthlyTarget.CurrentSales;
                 OnPropertyChanged(nameof(MonthlyTarget));
                 OnPropertyChanged(nameof(CurrentSales));
             }
