@@ -14,7 +14,7 @@ namespace RetailCommanderDesktop.ViewModels
         private readonly SqliteData _dataAccess;
         private readonly ConfigurationForm _configurationForm;
 
-        public ObservableCollection<EmployeeModel> Employees { get; set; }
+       public ObservableCollection<EmployeeModel> Employees { get; set; }
         public ICommand DeleteSelectedEmployeesCommand { get; }
 
         public event Action<string> ShowMessage;
@@ -25,7 +25,7 @@ namespace RetailCommanderDesktop.ViewModels
             _dataAccess = dataAccess;
             _configurationForm = configurationForm;
             Employees = new ObservableCollection<EmployeeModel>(LoadEmployeeData());
-            DeleteSelectedEmployeesCommand = new RelayCommand(DeleteSelectedEmployees);
+           DeleteSelectedEmployeesCommand = new RelayCommand(DeleteSelectedEmployees);
         }
 
         private List<EmployeeModel> LoadEmployeeData()
