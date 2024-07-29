@@ -6,8 +6,25 @@
         xmlns:local="clr-namespace:RetailCommanderDesktop"
         mc:Ignorable="d"
         Title="Configuration" Height="250" Width="300">
+
     <Grid>
-        <Button Content="Add Employee" Command="{Binding AddEmployeeCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="10"/>
-        <Button Content="Remove Employee" Command="{Binding RemoveEmployeeCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="10,50,0,0"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button Content="Add Employee" Command="{Binding AddEmployeeCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="10" Grid.Row="0"/>
+        <Button Content="Remove Employee" Command="{Binding RemoveEmployeeCommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" Height="30" Grid.Row="0" Margin="115,0,0,0"/>
+        <TextBlock Text="Monthly Target:" Grid.Row="1"/>
+        <TextBox Text="{Binding MonthlyTarget, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Margin="87,0,0,16" Grid.RowSpan="2"/>
+        <TextBlock Text="Current Sales:" Grid.Row="2"/>
+        <TextBox Text="{Binding CurrentSales, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Margin="87,0,0,16" Grid.RowSpan="2"/>
     </Grid>
 </Window>
