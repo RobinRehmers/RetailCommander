@@ -77,7 +77,6 @@ namespace RetailCommanderDesktop.ViewModels
                     selectedIds.Add(employee.EmployeeID);
                 }
             }
-
             return selectedIds;
         }
     }

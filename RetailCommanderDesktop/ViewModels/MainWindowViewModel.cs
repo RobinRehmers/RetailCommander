@@ -32,7 +32,6 @@ namespace RetailCommanderDesktop.ViewModels
             LoadMonthlyTarget();
             LoadEmployees(null);
 
-            // Attach PropertyChanged event handler
             ConfigurationFormViewModel.PropertyChanged += ConfigurationFormViewModel_PropertyChanged;
         }
 
