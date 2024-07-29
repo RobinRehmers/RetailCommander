@@ -20,7 +20,7 @@
             <ColumnDefinition Width="131*"/>
         </Grid.ColumnDefinitions>
         <ProgressBar x:Name="salesProgressBar" 
-              Value="{Binding ConfigurationFormViewModel.SalesProgress, Mode=OneWay}" 
+              Value="{Binding SalesProgress, Mode=OneWay}" 
               Minimum="0" 
               Maximum="100" 
               Height="46" 

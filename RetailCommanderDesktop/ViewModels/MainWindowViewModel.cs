@@ -4,6 +4,7 @@ using RetailCommanderDesktop.Commands;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Microsoft.Extensions.Configuration;
+using System.ComponentModel;
 
 namespace RetailCommanderDesktop.ViewModels
 {
@@ -20,18 +21,27 @@ namespace RetailCommanderDesktop.ViewModels
 
         public ConfigurationFormViewModel ConfigurationFormViewModel { get; }
 
-
         public MainWindowViewModel(SqliteData dataAccess, IConfiguration config)
         {
-            ConfigurationFormViewModel = new ConfigurationFormViewModel(dataAccess, this);
-
             _dataAccess = dataAccess;
             _config = config;
+            ConfigurationFormViewModel = new ConfigurationFormViewModel(_dataAccess, this);
             Employees = new ObservableCollection<EmployeeModel>();
             LoadEmployeesCommand = new RelayCommand(LoadEmployees);
             OpenConfigurationFormCommand = new RelayCommand(OpenConfigurationForm);
             LoadMonthlyTarget();
             LoadEmployees(null);
+
+            // Attach PropertyChanged event handler
+            ConfigurationFormViewModel.PropertyChanged += ConfigurationFormViewModel_PropertyChanged;
+        }
+
+        private void ConfigurationFormViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ConfigurationFormViewModel.SalesProgress))
+            {
+                OnPropertyChanged(nameof(SalesProgress));
+            }
         }
 
         public void LoadEmployees(object parameter)
@@ -53,13 +63,16 @@ namespace RetailCommanderDesktop.ViewModels
                 CurrentSales = monthlyTarget.CurrentSales;
                 OnPropertyChanged(nameof(MonthlyTarget));
                 OnPropertyChanged(nameof(CurrentSales));
+                OnPropertyChanged(nameof(SalesProgress));
             }
         }
 
         private void OpenConfigurationForm(object parameter)
         {
             var configurationForm = new ConfigurationForm(_dataAccess, this);
-            configurationForm.Show();
+            configurationForm.ShowDialog();
         }
+
+        public double SalesProgress => ConfigurationFormViewModel.SalesProgress;
     }
 }

@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using RetailCommanderLibrary.Models;
+using System.Diagnostics;
 
 namespace RetailCommanderDesktop.ViewModels
 {
@@ -25,8 +26,9 @@ namespace RetailCommanderDesktop.ViewModels
                 if (_monthlyTarget != value)
                 {
                     _monthlyTarget = value;
+                    Debug.WriteLine($"MonthlyTarget set to {_monthlyTarget}");
                     OnPropertyChanged();
-                    OnPropertyChanged(nameof(SalesProgress));// progressbar bug test
+                    OnPropertyChanged(nameof(SalesProgress));
                     UpdateMonthlyTargetInDatabase();
                 }
             }
@@ -40,17 +42,23 @@ namespace RetailCommanderDesktop.ViewModels
                 if (_currentSales != value)
                 {
                     _currentSales = value;
+                    Debug.WriteLine($"CurrentSales set to {_currentSales}");
                     OnPropertyChanged();
-                    OnPropertyChanged(nameof(SalesProgress));// progressbar bug test
+                    OnPropertyChanged(nameof(SalesProgress));
                     UpdateCurrentSalesInDatabase();
                 }
             }
         }
 
-        /// <summary>
-        /// Progressbar update for the sales target in realtime
-        /// </summary>
-        public double SalesProgress => _monthlyTarget == 0 ? 0 : (_currentSales / _monthlyTarget) * 100;
+        public double SalesProgress
+        {
+            get
+            {
+                double progress = _monthlyTarget == 0 ? 0 : (_currentSales / _monthlyTarget) * 100;
+                Debug.WriteLine($"SalesProgress calculated as {progress}");
+                return progress;
+            }
+        }
 
         public ConfigurationFormViewModel(SqliteData dataAccess, MainWindowViewModel mainWindowViewModel)
         {
@@ -85,12 +93,13 @@ namespace RetailCommanderDesktop.ViewModels
             {
                 MonthlyTarget = monthlyTarget.MonthlyTarget;
                 CurrentSales = monthlyTarget.CurrentSales;
-                OnPropertyChanged(nameof(SalesProgress)); // progressbar bug test
+                OnPropertyChanged(nameof(SalesProgress)); 
             }
         }
 
         private void UpdateMonthlyTargetInDatabase()
         {
+            Debug.WriteLine("Updating MonthlyTarget in database");
             _dataAccess.UpdateMonthlyTarget(new MonthlyTargetModel
             {
                 MonthlyTarget = _monthlyTarget,
@@ -100,6 +109,7 @@ namespace RetailCommanderDesktop.ViewModels
 
         private void UpdateCurrentSalesInDatabase()
         {
+            Debug.WriteLine("Updating CurrentSales in database");
             _dataAccess.UpdateMonthlyTarget(new MonthlyTargetModel
             {
                 MonthlyTarget = _monthlyTarget,
@@ -109,6 +119,7 @@ namespace RetailCommanderDesktop.ViewModels
 
         protected new void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
+            Debug.WriteLine($"PropertyChanged: {propertyName}");
             base.OnPropertyChanged(propertyName);
         }
     }
