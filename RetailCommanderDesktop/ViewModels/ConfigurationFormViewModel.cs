@@ -5,6 +5,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using RetailCommanderLibrary.Models;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace RetailCommanderDesktop.ViewModels
 {
@@ -18,6 +20,8 @@ namespace RetailCommanderDesktop.ViewModels
         public ICommand AddEmployeeCommand { get; }
         public ICommand RemoveEmployeeCommand { get; }
 
+        public ObservableCollection<CommissionStageModel> CommissionStages { get; set; } = new ObservableCollection<CommissionStageModel>();
+
         public double MonthlyTarget
         {
             get => _monthlyTarget;
@@ -26,7 +30,6 @@ namespace RetailCommanderDesktop.ViewModels
                 if (_monthlyTarget != value)
                 {
                     _monthlyTarget = value;
-                    //Debug.WriteLine($"MonthlyTarget set to {_monthlyTarget}");
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(SalesProgress));
                     UpdateMonthlyTargetInDatabase();
@@ -42,7 +45,6 @@ namespace RetailCommanderDesktop.ViewModels
                 if (_currentSales != value)
                 {
                     _currentSales = value;
-                    //Debug.WriteLine($"CurrentSales set to {_currentSales}");
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(SalesProgress));
                     UpdateCurrentSalesInDatabase();
@@ -55,7 +57,6 @@ namespace RetailCommanderDesktop.ViewModels
             get
             {
                 double progress = _monthlyTarget == 0 ? 0 : (_currentSales / _monthlyTarget) * 100;
-                //Debug.WriteLine($"SalesProgress calculated as {progress}");
                 return progress;
             }
         }
@@ -67,6 +68,53 @@ namespace RetailCommanderDesktop.ViewModels
             AddEmployeeCommand = new RelayCommand(OpenAddEmployeeForm);
             RemoveEmployeeCommand = new RelayCommand(OpenRemoveEmployeeForm);
             LoadMonthlyTarget();
+            LoadCommissionStages();
+        }
+
+        public void AddCommissionStage(double targetAmount, double commissionPercentage)
+        {
+            var newStage = new CommissionStageModel
+            {
+                TargetAmount = targetAmount,
+                CommissionPercentage = commissionPercentage
+            };
+            CommissionStages.Add(newStage);
+            _dataAccess.SaveCommissionStage(newStage);
+            OnPropertyChanged(nameof(CommissionStages));
+        }
+
+        private void LoadCommissionStages()
+        {
+            var stages = _dataAccess.GetCommissionStages();
+            foreach (var stage in stages)
+            {
+                CommissionStages.Add(stage);
+            }
+        }
+
+        public void CalculateAndDistributeCommissions()
+        {
+            foreach (var stage in CommissionStages.OrderBy(s => s.TargetAmount))
+            {
+                if (CurrentSales >= stage.TargetAmount)
+                {
+                    double totalCommission = (CurrentSales * stage.CommissionPercentage) / 100;
+                    DistributeCommission(totalCommission);
+                }
+            }
+        }
+
+        private void DistributeCommission(double totalCommission)
+        {
+            var employees = _dataAccess.GetEmployees();
+            double totalHours = employees.Sum(e => e.HoursPerWeek);
+
+            foreach (var employee in employees)
+            {
+                double employeeShare = (employee.HoursPerWeek / totalHours) * totalCommission;
+                employee.Commission += (int)employeeShare;
+                _dataAccess.UpdateEmployeeCommission(employee);
+            }
         }
 
         private void OpenAddEmployeeForm(object parameter)
@@ -93,13 +141,12 @@ namespace RetailCommanderDesktop.ViewModels
             {
                 MonthlyTarget = monthlyTarget.MonthlyTarget;
                 CurrentSales = monthlyTarget.CurrentSales;
-                OnPropertyChanged(nameof(SalesProgress)); 
+                OnPropertyChanged(nameof(SalesProgress));
             }
         }
 
         private void UpdateMonthlyTargetInDatabase()
         {
-            //Debug.WriteLine("Updating MonthlyTarget in database");
             _dataAccess.UpdateMonthlyTarget(new MonthlyTargetModel
             {
                 MonthlyTarget = _monthlyTarget,
@@ -109,7 +156,6 @@ namespace RetailCommanderDesktop.ViewModels
 
         private void UpdateCurrentSalesInDatabase()
         {
-            //Debug.WriteLine("Updating CurrentSales in database");
             _dataAccess.UpdateMonthlyTarget(new MonthlyTargetModel
             {
                 MonthlyTarget = _monthlyTarget,
@@ -119,7 +165,6 @@ namespace RetailCommanderDesktop.ViewModels
 
         protected new void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
-            //Debug.WriteLine($"PropertyChanged: {propertyName}");
             base.OnPropertyChanged(propertyName);
         }
     }

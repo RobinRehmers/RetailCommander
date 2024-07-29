@@ -22,6 +22,31 @@ namespace RetailCommanderLibrary.Data
             _db = db;
         }
 
+        public void SaveCommissionStage(CommissionStageModel stage)
+        {
+            string sql = @"INSERT INTO CommissionStages (TargetAmount, CommissionPercentage)
+                       VALUES (@TargetAmount, @CommissionPercentage);";
+            _db.SaveData(sql, new { stage.TargetAmount, stage.CommissionPercentage }, ConnectionStringName);
+        }
+
+        public List<CommissionStageModel> GetCommissionStages()
+        {
+            string sql = "SELECT * FROM CommissionStages;";
+            return _db.LoadData<CommissionStageModel, dynamic>(sql, new { }, ConnectionStringName).ToList();
+        }
+
+        public List<EmployeeModel> GetEmployees()
+        {
+            string sql = "SELECT * FROM Employees;";
+            return _db.LoadData<EmployeeModel, dynamic>(sql, new { }, ConnectionStringName).ToList();
+        }
+
+        public void UpdateEmployeeCommission(EmployeeModel employee)
+        {
+            string sql = @"UPDATE Employees SET Commission = @Commission WHERE Id = @Id;";
+            _db.SaveData(sql, new { employee.Commission, employee.EmployeeID }, ConnectionStringName);
+        }
+
         /// <summary>
         /// We get the monthly target data from the database.
         /// </summary>
@@ -47,11 +72,11 @@ namespace RetailCommanderLibrary.Data
         /// <summary>
         /// We get the actual employee data from the database.
         /// </summary>
-        public List<EmployeeModel> GetEmployees()
-        {
-            string sql = "SELECT employeeID, firstName, lastName, hoursPerWeek, commission FROM Employees";
-            return _db.LoadData<EmployeeModel, dynamic>(sql, new { }, ConnectionStringName);
-        }
+        //public List<EmployeeModel> GetEmployees()
+        //{
+        //    string sql = "SELECT employeeID, firstName, lastName, hoursPerWeek, commission FROM Employees";
+        //    return _db.LoadData<EmployeeModel, dynamic>(sql, new { }, ConnectionStringName);
+        //}
 
         /// <summary>
         /// We get the employee data by name from the database. This is used by the GetSelectedEmployeeIdsFromUI method in the MainWindow.xaml.cs file.
