@@ -18,8 +18,13 @@ namespace RetailCommanderDesktop.ViewModels
         public ICommand LoadEmployeesCommand { get; }
         public ICommand OpenConfigurationFormCommand { get; }
 
+        public ConfigurationFormViewModel ConfigurationFormViewModel { get; }
+
+
         public MainWindowViewModel(SqliteData dataAccess, IConfiguration config)
         {
+            ConfigurationFormViewModel = new ConfigurationFormViewModel(dataAccess, this);
+
             _dataAccess = dataAccess;
             _config = config;
             Employees = new ObservableCollection<EmployeeModel>();

@@ -26,6 +26,7 @@ namespace RetailCommanderDesktop.ViewModels
                 {
                     _monthlyTarget = value;
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(SalesProgress));// progressbar bug test
                     UpdateMonthlyTargetInDatabase();
                 }
             }
@@ -40,10 +41,16 @@ namespace RetailCommanderDesktop.ViewModels
                 {
                     _currentSales = value;
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(SalesProgress));// progressbar bug test
                     UpdateCurrentSalesInDatabase();
                 }
             }
         }
+
+        /// <summary>
+        /// Progressbar update for the sales target in realtime
+        /// </summary>
+        public double SalesProgress => _monthlyTarget == 0 ? 0 : (_currentSales / _monthlyTarget) * 100;
 
         public ConfigurationFormViewModel(SqliteData dataAccess, MainWindowViewModel mainWindowViewModel)
         {
@@ -78,6 +85,7 @@ namespace RetailCommanderDesktop.ViewModels
             {
                 MonthlyTarget = monthlyTarget.MonthlyTarget;
                 CurrentSales = monthlyTarget.CurrentSales;
+                OnPropertyChanged(nameof(SalesProgress)); // progressbar bug test
             }
         }
 
