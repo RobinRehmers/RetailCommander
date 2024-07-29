@@ -9,20 +9,20 @@ namespace RetailCommanderDesktop.ViewModels
     public class AddEmployeeFormViewModel : BaseViewModel
     {
         private readonly SqliteData _dataAccess;
-        private readonly ConfigurationForm _configurationForm;
+        private readonly ConfigurationFormViewModel _configurationFormViewModel;
+
+        public event Action<string> ShowMessage;
+        public event Action CloseWindow;
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Hours { get; set; }
         public ICommand AddEmployeeCommand { get; }
 
-        public event Action<string> ShowMessage;
-        public event Action CloseWindow;
-
-        public AddEmployeeFormViewModel(SqliteData dataAccess, ConfigurationForm configurationForm)
+        public AddEmployeeFormViewModel(SqliteData dataAccess, ConfigurationFormViewModel configurationFormViewModel)
         {
             _dataAccess = dataAccess;
-            _configurationForm = configurationForm;
+            _configurationFormViewModel = configurationFormViewModel;
             AddEmployeeCommand = new RelayCommand(AddEmployee);
         }
 
@@ -32,7 +32,7 @@ namespace RetailCommanderDesktop.ViewModels
             {
                 _dataAccess.AddEmployee(FirstName, LastName, Hours, 0);
                 ShowMessage?.Invoke("Employee added successfully!");
-                _configurationForm.LoadEmployeeData();
+                _configurationFormViewModel.LoadEmployeeData();
                 CloseWindow?.Invoke();
             }
             catch (Exception ex)

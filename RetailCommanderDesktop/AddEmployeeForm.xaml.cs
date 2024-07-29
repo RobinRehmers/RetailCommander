@@ -7,14 +7,14 @@ namespace RetailCommanderDesktop
     public partial class AddEmployeeForm : Window
     {
         private readonly SqliteData _dataAccess;
-        private readonly ConfigurationForm _configurationForm;
+        private readonly ConfigurationFormViewModel _configurationFormViewModel;
 
-        public AddEmployeeForm(SqliteData dataAccess, ConfigurationForm configurationForm)
+        public AddEmployeeForm(SqliteData dataAccess, ConfigurationFormViewModel configurationFormViewModel)
         {
             InitializeComponent();
             _dataAccess = dataAccess;
-            _configurationForm = configurationForm;
-            var viewModel = new AddEmployeeFormViewModel(_dataAccess, _configurationForm);
+            _configurationFormViewModel = configurationFormViewModel;
+            var viewModel = new AddEmployeeFormViewModel(_dataAccess, _configurationFormViewModel);
             viewModel.ShowMessage += ShowMessage;
             viewModel.CloseWindow += CloseWindow;
             DataContext = viewModel;

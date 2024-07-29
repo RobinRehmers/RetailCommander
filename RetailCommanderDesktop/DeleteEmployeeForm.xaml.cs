@@ -6,10 +6,15 @@ namespace RetailCommanderDesktop
 {
     public partial class DeleteEmployeeForm : Window
     {
-        public DeleteEmployeeForm(SqliteData dataAccess, ConfigurationForm configurationForm)
+        private readonly SqliteData _dataAccess;
+        private readonly ConfigurationFormViewModel _configurationFormViewModel;
+
+        public DeleteEmployeeForm(SqliteData dataAccess, ConfigurationFormViewModel configurationFormViewModel)
         {
             InitializeComponent();
-            var viewModel = new DeleteEmployeeViewModel(dataAccess, configurationForm);
+            _dataAccess = dataAccess;
+            _configurationFormViewModel = configurationFormViewModel;
+            var viewModel = new DeleteEmployeeViewModel(_dataAccess, _configurationFormViewModel);
             viewModel.ShowMessage += ShowMessage;
             viewModel.CloseWindow += CloseWindow;
             DataContext = viewModel;

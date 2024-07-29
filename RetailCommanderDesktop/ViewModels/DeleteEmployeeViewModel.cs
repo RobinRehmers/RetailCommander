@@ -13,8 +13,9 @@ namespace RetailCommanderDesktop.ViewModels
     {
         private readonly SqliteData _dataAccess;
         private readonly ConfigurationForm _configurationForm;
+        private ConfigurationFormViewModel _configurationFormViewModel;
 
-       public ObservableCollection<EmployeeModel> Employees { get; set; }
+        public ObservableCollection<EmployeeModel> Employees { get; set; }
         public ICommand DeleteSelectedEmployeesCommand { get; }
 
         public event Action<string> ShowMessage;
@@ -25,7 +26,15 @@ namespace RetailCommanderDesktop.ViewModels
             _dataAccess = dataAccess;
             _configurationForm = configurationForm;
             Employees = new ObservableCollection<EmployeeModel>(LoadEmployeeData());
-           DeleteSelectedEmployeesCommand = new RelayCommand(DeleteSelectedEmployees);
+            DeleteSelectedEmployeesCommand = new RelayCommand(DeleteSelectedEmployees);
+        }
+
+        public DeleteEmployeeViewModel(SqliteData dataAccess, ConfigurationFormViewModel configurationFormViewModel)
+        {
+            _dataAccess = dataAccess;
+            _configurationFormViewModel = configurationFormViewModel;
+            Employees = new ObservableCollection<EmployeeModel>(LoadEmployeeData());
+            DeleteSelectedEmployeesCommand = new RelayCommand(DeleteSelectedEmployees);
         }
 
         private List<EmployeeModel> LoadEmployeeData()
@@ -41,7 +50,12 @@ namespace RetailCommanderDesktop.ViewModels
             {
                 _dataAccess.DeleteEmployees(selectedEmployeeIds);
                 ShowMessage?.Invoke("Selected employees have been deleted.");
-                _configurationForm.LoadEmployeeData();
+                Employees.Clear();
+                foreach (var employee in LoadEmployeeData())
+                {
+                    Employees.Add(employee);
+                }
+                _configurationFormViewModel?.LoadEmployeeData();
                 CloseWindow?.Invoke();
             }
             else

@@ -9,7 +9,7 @@
 
     <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
         <Grid.RowDefinitions>
-
+            <!-- Define your row definitions here -->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -19,8 +19,9 @@
             <ColumnDefinition Width="544*"/>
             <ColumnDefinition Width="131*"/>
         </Grid.ColumnDefinitions>
-        <ProgressBar x:Name="salesProgressBar" Margin="27,90,27,523" BorderThickness="2,2,2,2" Foreground="#FFE71414" Grid.ColumnSpan="6"/>
-        <DataGrid x:Name="employeeDataGrid" Margin="27,306,27,141" IsReadOnly="True" Grid.ColumnSpan="6" AutoGenerateColumns="False">
+        <ProgressBar x:Name="salesProgressBar" Margin="27,90,27,523" BorderThickness="2,2,2,2" Foreground="#FFE71414" Grid.ColumnSpan="6"
+                     Maximum="{Binding MonthlyTarget}" Value="{Binding CurrentSales}"/>
+        <DataGrid x:Name="employeeDataGrid" Margin="27,306,27,141" IsReadOnly="True" Grid.ColumnSpan="6" AutoGenerateColumns="False" ItemsSource="{Binding Employees}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="*"/>
                 <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="*"/>
@@ -28,6 +29,6 @@
                 <DataGridTextColumn Header="Commission" Binding="{Binding Commission}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="ConfigurationBtn" Content="Button" Grid.ColumnSpan="5" HorizontalAlignment="Left" Height="51" Margin="27,250,0,0" VerticalAlignment="Top" Width="163" Click="ConfigurationForm_Click"/>
+        <Button x:Name="ConfigurationBtn" Content="Configuration" Grid.ColumnSpan="5" HorizontalAlignment="Left" Height="51" Margin="27,250,0,0" VerticalAlignment="Top" Width="163" Command="{Binding OpenConfigurationFormCommand}"/>
     </Grid>
 </Window>
