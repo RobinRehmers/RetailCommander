@@ -5,37 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RetailCommanderDesktop"
         mc:Ignorable="d"
-        Title="Configuration" Height="400" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+        Title="Configuration" Height="350" Width="450" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
 
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="152"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="39*"/>
+            <ColumnDefinition Width="259*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="20"/>
             <RowDefinition Height="Auto" MinHeight="22.96"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" MinHeight="27.96"/>
+            <RowDefinition Height="Auto" MinHeight="167.88"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Content="Add Employee" Command="{Binding AddEmployeeCommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="112" Height="20" Margin="10,5,0,5"/>
-        <Button Content="Delete Employee" Command="{Binding DeleteEmployeeCommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="113" Height="20" Margin="131,5,0,5" Grid.ColumnSpan="3"/>
-        <TextBlock Text="Monthly Target:" Grid.Row="1" Margin="10,0,56,5" Grid.ColumnSpan="3"/>
-        <TextBox Text="{Binding MonthlyTarget, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Margin="99,0,56,5" Grid.ColumnSpan="3"/>
-        <TextBlock Text="Current Sales:" Grid.Row="2" Margin="10,0,56,5" Grid.ColumnSpan="3"/>
-        <TextBox Text="{Binding CurrentSales, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Margin="99,0,56,10" Grid.ColumnSpan="3"/>
+        <TextBlock Text="Employee / Goal configuration" Grid.Row="0" Grid.ColumnSpan="4" FontWeight="Bold" Margin="133,20,0,20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button Content="Add Employee" Grid.Row="1" Command="{Binding AddEmployeeCommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="132" Height="20" Margin="100,3,0,0" Grid.Column="3"/>
+        <Button Content="Delete Employee" Grid.Row="2" Command="{Binding DeleteEmployeeCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Height="20" Margin="100,3,0,0" Grid.Column="3"/>
+        <TextBlock Text="Monthly Target:" Grid.Row="1" Margin="10,0,0,0" Grid.ColumnSpan="4" VerticalAlignment="Center"/>
+        <TextBox Text="{Binding MonthlyTarget, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Margin="99,5,0,5" Grid.ColumnSpan="4" Height="20" HorizontalAlignment="Left" Width="100"/>
+        <TextBlock Text="Current Sales:" Grid.Row="2" Margin="10,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding CurrentSales, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Margin="99,5,0,5" Grid.ColumnSpan="4" Height="20" Width="100" HorizontalAlignment="Left"/>
 
-        <StackPanel Margin="10,10,10,10" Grid.Row="3">
-            <TextBlock Text="Add Commission Stage" FontWeight="Bold" Margin="0,0,0,10"/>
-            <TextBox Text="{Binding NewTargetAmount, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
-            <TextBox Text="{Binding NewCommissionPercentage, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                <Button Content="Add Commission Stage" Command="{Binding AddCommissionStageCommand}" Width="133" Margin="5"/>
-                <Button Content="Delete Commission Stage" Command="{Binding DeleteCommissionStageCommand}" Width="150" Margin="5"/>
-            </StackPanel>
-            <ListView ItemsSource="{Binding CommissionStages}" SelectedItem="{Binding SelectedCommissionStage, Mode=TwoWay}" Height="91">
+        <StackPanel Margin="10,10,10,10" Grid.Row="3" Grid.ColumnSpan="4">
+            <TextBlock Text="Commission Stages" FontWeight="Bold" Margin="0,20,0,20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Button Content="Delete selected commission stage" Command="{Binding DeleteCommissionStageCommand}" Width="236" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,5"/>
+            <ListView ItemsSource="{Binding CommissionStages}" SelectedItem="{Binding SelectedCommissionStage, Mode=TwoWay}" Height="91" Width="236" HorizontalAlignment="Right">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Target Amount" DisplayMemberBinding="{Binding TargetAmount}"/>
@@ -43,6 +40,12 @@
                     </GridView>
                 </ListView.View>
             </ListView>
+
+        </StackPanel>
+        <StackPanel Margin="10,67,10,35" Grid.Row="3">
+            <Button Content="Add Commission Stage" Command="{Binding AddCommissionStageCommand}" Width="132" HorizontalAlignment="Left" Margin="0,0,0,5"/>
+            <TextBox Text="{Binding NewTargetAmount, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,5" Width="80" HorizontalAlignment="Left"/>
+            <TextBox Text="{Binding NewCommissionPercentage, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,5" Width="80" HorizontalAlignment="Left"/>
         </StackPanel>
     </Grid>
 </Window>
