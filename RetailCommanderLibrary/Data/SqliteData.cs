@@ -43,7 +43,7 @@ namespace RetailCommanderLibrary.Data
 
         public void UpdateEmployeeCommission(EmployeeModel employee)
         {
-            string sql = @"UPDATE Employees SET Commission = @Commission WHERE Id = @Id;";
+            string sql = @"UPDATE Employees SET Commission = @Commission WHERE EmployeeID = @EmployeeID;";
             _db.SaveData(sql, new { employee.Commission, employee.EmployeeID }, ConnectionStringName);
         }
 

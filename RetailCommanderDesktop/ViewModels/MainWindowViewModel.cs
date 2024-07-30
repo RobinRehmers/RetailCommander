@@ -45,6 +45,10 @@ namespace RetailCommanderDesktop.ViewModels
 
         public void LoadEmployees(object parameter)
         {
+            if (Employees == null)
+            {
+                Employees = new ObservableCollection<EmployeeModel>();
+            }
             Employees.Clear();
             var employees = _dataAccess.GetEmployees();
             foreach (var employee in employees)
@@ -52,6 +56,7 @@ namespace RetailCommanderDesktop.ViewModels
                 Employees.Add(employee);
             }
         }
+
 
         private void LoadMonthlyTarget()
         {

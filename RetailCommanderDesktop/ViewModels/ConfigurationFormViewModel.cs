@@ -48,6 +48,7 @@ public class ConfigurationFormViewModel : BaseViewModel
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(SalesProgress));
                 UpdateCurrentSalesInDatabase();
+                CalculateAndDistributeCommissions();
             }
         }
     }
@@ -129,6 +130,7 @@ public class ConfigurationFormViewModel : BaseViewModel
                 DistributeCommission(totalCommission);
             }
         }
+        _mainWindowViewModel.LoadEmployees(null);
     }
 
     private void DistributeCommission(double totalCommission)
