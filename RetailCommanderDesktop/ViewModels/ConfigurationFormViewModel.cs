@@ -120,19 +120,31 @@ public class ConfigurationFormViewModel : BaseViewModel
         }
     }
 
+    /// <summary>
+    /// we will calculate the currently highest commission stage that the sales have reached and calculate the commission based on that stage.
+    /// </summary>
     public void CalculateAndDistributeCommissions()
     {
-        foreach (var stage in CommissionStages.OrderBy(s => s.TargetAmount))
+        var activeStage = CommissionStages
+            .OrderByDescending(s => s.TargetAmount)
+            .FirstOrDefault(s => CurrentSales >= s.TargetAmount);
+
+        if (activeStage != null)
         {
-            if (CurrentSales >= stage.TargetAmount)
-            {
-                double totalCommission = (CurrentSales * stage.CommissionPercentage) / 100;
-                DistributeCommission(totalCommission);
-            }
+            double totalCommission = (CurrentSales * activeStage.CommissionPercentage) / 100;
+            DistributeCommission(totalCommission);
         }
+        else
+        {
+            ResetCommissions();
+        }
+
         _mainWindowViewModel.LoadEmployees(null);
     }
 
+    /// <summary>
+    /// Distribute the commission to the employees based on their hours worked.
+    /// </summary>
     private void DistributeCommission(double totalCommission)
     {
         var employees = _dataAccess.GetEmployees();
@@ -141,7 +153,18 @@ public class ConfigurationFormViewModel : BaseViewModel
         foreach (var employee in employees)
         {
             double employeeShare = (employee.HoursPerWeek / totalHours) * totalCommission;
-            employee.Commission += (int)employeeShare;
+            employee.Commission = (int)employeeShare;
+            _dataAccess.UpdateEmployeeCommission(employee);
+        }
+    }
+
+    private void ResetCommissions()
+    {
+        var employees = _dataAccess.GetEmployees();
+
+        foreach (var employee in employees)
+        {
+            employee.Commission = 0;
             _dataAccess.UpdateEmployeeCommission(employee);
         }
     }
