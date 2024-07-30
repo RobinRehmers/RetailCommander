@@ -33,6 +33,8 @@ namespace RetailCommanderDesktop.ViewModels
             LoadEmployees(null);
 
            ConfigurationFormViewModel.PropertyChanged += ConfigurationFormViewModel_PropertyChanged;
+
+           ConfigurationFormViewModel.CalculateAndDistributeCommissions();
         }
 
         private void ConfigurationFormViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
