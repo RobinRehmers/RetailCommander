@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RetailCommanderDesktop"
         mc:Ignorable="d"
-        Title="Configuration" Height="400" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+        Title="Configuration" Height="400" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -31,8 +31,11 @@
             <TextBlock Text="Add Commission Stage" FontWeight="Bold" Margin="0,0,0,10"/>
             <TextBox Text="{Binding NewTargetAmount, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
             <TextBox Text="{Binding NewCommissionPercentage, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
-            <Button Content="Add Commission Stage" Command="{Binding AddCommissionStageCommand}" Margin="0,0,0,10"/>
-            <ListView ItemsSource="{Binding CommissionStages}" Height="91">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Content="Add Commission Stage" Command="{Binding AddCommissionStageCommand}" Width="133" Margin="5"/>
+                <Button Content="Delete Commission Stage" Command="{Binding DeleteCommissionStageCommand}" Width="150" Margin="5"/>
+            </StackPanel>
+            <ListView ItemsSource="{Binding CommissionStages}" SelectedItem="{Binding SelectedCommissionStage, Mode=TwoWay}" Height="91">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Target Amount" DisplayMemberBinding="{Binding TargetAmount}"/>

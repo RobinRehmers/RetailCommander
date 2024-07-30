@@ -22,6 +22,16 @@ namespace RetailCommanderLibrary.Data
             _db = db;
         }
 
+        public void DeleteCommissionStage(CommissionStageModel stage)
+        {
+            if (stage != null)
+            {
+            string sql = "DELETE FROM CommissionStages WHERE StageID = @StageID;";
+            _db.SaveData(sql, new { StageID = stage.StageID }, ConnectionStringName);
+            }
+        }
+
+
         public void SaveCommissionStage(CommissionStageModel stage)
         {
             string sql = @"INSERT INTO CommissionStages (TargetAmount, CommissionPercentage)

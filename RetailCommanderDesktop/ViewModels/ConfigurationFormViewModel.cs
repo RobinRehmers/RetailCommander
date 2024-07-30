@@ -19,6 +19,18 @@ public class ConfigurationFormViewModel : BaseViewModel
     public ICommand AddEmployeeCommand { get; }
     public ICommand DeleteEmployeeCommand { get; }
     public ICommand AddCommissionStageCommand { get; }
+    public ICommand DeleteCommissionStageCommand { get; }
+
+    private CommissionStageModel _selectedCommissionStage;
+    public CommissionStageModel SelectedCommissionStage
+    {
+        get => _selectedCommissionStage;
+        set
+        {
+            _selectedCommissionStage = value;
+            OnPropertyChanged();
+        }
+    }
 
     public ObservableCollection<CommissionStageModel> CommissionStages { get; set; } = new ObservableCollection<CommissionStageModel>();
 
@@ -95,8 +107,25 @@ public class ConfigurationFormViewModel : BaseViewModel
         AddEmployeeCommand = new RelayCommand(OpenAddEmployeeForm);
         DeleteEmployeeCommand = new RelayCommand(OpenDeleteEmployeeForm);
         AddCommissionStageCommand = new RelayCommand(AddCommissionStage);
+        DeleteCommissionStageCommand = new RelayCommand(DeleteCommissionStage, CanDeleteCommissionStage);
         LoadMonthlyTarget();
         LoadCommissionStages();
+    }
+
+    private void DeleteCommissionStage(object parameter)
+    {
+        if (SelectedCommissionStage != null)
+        {
+            _dataAccess.DeleteCommissionStage(SelectedCommissionStage);
+            CommissionStages.Remove(SelectedCommissionStage);           
+            OnPropertyChanged(nameof(CommissionStages));
+            CalculateAndDistributeCommissions();
+        }
+    }
+
+    private bool CanDeleteCommissionStage(object parameter)
+    {
+        return SelectedCommissionStage != null;
     }
 
     public void AddCommissionStage(object parameter)
