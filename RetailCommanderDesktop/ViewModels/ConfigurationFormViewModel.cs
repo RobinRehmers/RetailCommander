@@ -138,6 +138,7 @@ public class ConfigurationFormViewModel : BaseViewModel
         CommissionStages.Add(newStage);
         _dataAccess.SaveCommissionStage(newStage);
         OnPropertyChanged(nameof(CommissionStages));
+        CalculateAndDistributeCommissions();
     }
 
     private void LoadCommissionStages()
