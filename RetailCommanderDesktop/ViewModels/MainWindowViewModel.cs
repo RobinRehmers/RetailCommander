@@ -32,7 +32,7 @@ namespace RetailCommanderDesktop.ViewModels
             LoadMonthlyTarget();
             LoadEmployees(null);
 
-            ConfigurationFormViewModel.PropertyChanged += ConfigurationFormViewModel_PropertyChanged;
+           ConfigurationFormViewModel.PropertyChanged += ConfigurationFormViewModel_PropertyChanged;
         }
 
         private void ConfigurationFormViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
