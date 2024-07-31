@@ -11,7 +11,6 @@ namespace RetailCommanderLibrary.Data
     {
         private readonly SqliteData _sqliteData;
         private Dictionary<string, string> _translations;
-
         public event PropertyChangedEventHandler TranslationsUpdated;
 
         public TranslationManager(SqliteData sqliteData)
