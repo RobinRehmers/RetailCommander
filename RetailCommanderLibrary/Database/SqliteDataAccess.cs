@@ -13,7 +13,6 @@ namespace RetailCommanderLibrary.Database
 {
     public class SqliteDataAccess : ISqliteDataAccess
     {
-
         private readonly IConfiguration _config;
 
         public SqliteDataAccess(IConfiguration config)

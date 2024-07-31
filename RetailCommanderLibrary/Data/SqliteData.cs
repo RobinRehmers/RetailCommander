@@ -69,36 +69,21 @@ namespace RetailCommanderLibrary.Data
             _db.SaveData(sql, new { employee.Commission, employee.EmployeeID }, ConnectionStringName);
         }
 
-        /// <summary>
-        /// We get the monthly target data from the database.
-        /// </summary>
         public MonthlyTargetModel GetMonthlyTarget()
         {
             string sql = "SELECT * FROM MonthlyTargets LIMIT 1";
             return _db.LoadData<MonthlyTargetModel, dynamic>(sql, new { }, ConnectionStringName).FirstOrDefault();
         }
 
-        /// <summary>
-        /// We update the monthly target data in the database.
-        /// </summary>
         public void UpdateMonthlyTarget(MonthlyTargetModel monthlyTarget)
         {
             string sql = @"UPDATE MonthlyTargets 
                            SET MonthlyTarget = @MonthlyTarget, 
                                CurrentSales = @CurrentSales
-                           WHERE Id = 1"; // Assuming there's only one record
+                           WHERE Id = 1";
 
             _db.SaveData(sql, monthlyTarget, ConnectionStringName);
         }
-
-        /// <summary>
-        /// We get the actual employee data from the database.
-        /// </summary>
-        //public List<EmployeeModel> GetEmployees()
-        //{
-        //    string sql = "SELECT employeeID, firstName, lastName, hoursPerWeek, commission FROM Employees";
-        //    return _db.LoadData<EmployeeModel, dynamic>(sql, new { }, ConnectionStringName);
-        //}
 
         /// <summary>
         /// We get the employee data by name from the database. This is used by the GetSelectedEmployeeIdsFromUI method in the MainWindow.xaml.cs file.

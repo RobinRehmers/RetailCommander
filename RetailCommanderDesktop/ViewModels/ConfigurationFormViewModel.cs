@@ -25,6 +25,21 @@ public class ConfigurationFormViewModel : BaseViewModel
     public ICommand DeleteCommissionStageCommand { get; }
 
     private CommissionStageModel _selectedCommissionStage;
+    public ObservableCollection<CommissionStageModel> CommissionStages { get; set; } = new ObservableCollection<CommissionStageModel>();
+
+    public ConfigurationFormViewModel(SqliteData dataAccess, MainWindowViewModel mainWindowViewModel, ITranslationManager translationManager)
+    {
+        _dataAccess = dataAccess;
+        _mainWindowViewModel = mainWindowViewModel;
+        _translationManager = translationManager;
+        AddEmployeeCommand = new RelayCommand(OpenAddEmployeeForm);
+        DeleteEmployeeCommand = new RelayCommand(OpenDeleteEmployeeForm);
+        AddCommissionStageCommand = new RelayCommand(AddCommissionStage);
+        DeleteCommissionStageCommand = new RelayCommand(DeleteCommissionStage, CanDeleteCommissionStage);
+        LoadMonthlyTarget();
+        LoadCommissionStages();
+    }
+
     public CommissionStageModel SelectedCommissionStage
     {
         get => _selectedCommissionStage;
@@ -34,8 +49,6 @@ public class ConfigurationFormViewModel : BaseViewModel
             OnPropertyChanged();
         }
     }
-
-    public ObservableCollection<CommissionStageModel> CommissionStages { get; set; } = new ObservableCollection<CommissionStageModel>();
 
     public double MonthlyTarget
     {
@@ -103,18 +116,6 @@ public class ConfigurationFormViewModel : BaseViewModel
         }
     }
 
-    public ConfigurationFormViewModel(SqliteData dataAccess, MainWindowViewModel mainWindowViewModel, ITranslationManager translationManager)
-    {
-        _dataAccess = dataAccess;
-        _mainWindowViewModel = mainWindowViewModel;
-        _translationManager = translationManager;
-        AddEmployeeCommand = new RelayCommand(OpenAddEmployeeForm);
-        DeleteEmployeeCommand = new RelayCommand(OpenDeleteEmployeeForm);
-        AddCommissionStageCommand = new RelayCommand(AddCommissionStage);
-        DeleteCommissionStageCommand = new RelayCommand(DeleteCommissionStage, CanDeleteCommissionStage);
-        LoadMonthlyTarget();
-        LoadCommissionStages();       
-    }
 
     
     protected void OnPropertyChanged(string propertyName)
@@ -254,9 +255,4 @@ public class ConfigurationFormViewModel : BaseViewModel
             CurrentSales = _currentSales
         });
     }
-
-    //protected new void OnPropertyChanged([CallerMemberName] string propertyName = "")
-    //{
-    //    base.OnPropertyChanged(propertyName);
-    //}
 }
