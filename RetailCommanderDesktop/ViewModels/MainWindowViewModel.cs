@@ -13,7 +13,7 @@ namespace RetailCommanderDesktop.ViewModels
         private readonly SqliteData _dataAccess;
         private readonly IConfiguration _config;
         private readonly ITranslationManager _translationManager;
-        public double SalesProgress => ConfigurationFormViewModel.SalesProgress;
+       
 
         public ObservableCollection<EmployeeModel> Employees { get; set; }
         public double MonthlyTarget { get; set; }
@@ -28,7 +28,7 @@ namespace RetailCommanderDesktop.ViewModels
             _dataAccess = dataAccess;
             _config = config;
             _translationManager = translationManager;
-            ConfigurationFormViewModel = new ConfigurationFormViewModel(_dataAccess, this, _translationManager);
+            ConfigurationFormViewModel = new ConfigurationFormViewModel(_dataAccess, this);
             Employees = new ObservableCollection<EmployeeModel>();
             LoadEmployeesCommand = new RelayCommand(LoadEmployees);
             OpenConfigurationFormCommand = new RelayCommand(OpenConfigurationForm);
@@ -80,12 +80,13 @@ namespace RetailCommanderDesktop.ViewModels
             var configurationForm = new ConfigurationForm(_dataAccess, this, _translationManager);
             configurationForm.ShowDialog();
         }
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        //protected void OnPropertyChanged(string propertyName)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //}
+        public double SalesProgress => ConfigurationFormViewModel.SalesProgress;
 
     }
 }

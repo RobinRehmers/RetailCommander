@@ -20,7 +20,7 @@ namespace RetailCommanderDesktop
             _mainWindowViewModel = mainWindowViewModel;
             _translationManager = translationManager;
             _translationManager.TranslationsUpdated += TranslationManager_TranslationsUpdated;
-            DataContext = this;
+            DataContext = _mainWindowViewModel.ConfigurationFormViewModel;
 
             var config = (IConfiguration)Application.Current.Resources["AppConfig"];
             var initialLanguage = config["Language"];

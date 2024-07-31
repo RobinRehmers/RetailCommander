@@ -27,11 +27,11 @@ public class ConfigurationFormViewModel : BaseViewModel
     private CommissionStageModel _selectedCommissionStage;
     public ObservableCollection<CommissionStageModel> CommissionStages { get; set; } = new ObservableCollection<CommissionStageModel>();
 
-    public ConfigurationFormViewModel(SqliteData dataAccess, MainWindowViewModel mainWindowViewModel, ITranslationManager translationManager)
+    public ConfigurationFormViewModel(SqliteData dataAccess, MainWindowViewModel mainWindowViewModel)
     {
         _dataAccess = dataAccess;
         _mainWindowViewModel = mainWindowViewModel;
-        _translationManager = translationManager;
+        //_translationManager = translationManager;
         AddEmployeeCommand = new RelayCommand(OpenAddEmployeeForm);
         DeleteEmployeeCommand = new RelayCommand(OpenDeleteEmployeeForm);
         AddCommissionStageCommand = new RelayCommand(AddCommissionStage);
@@ -116,10 +116,11 @@ public class ConfigurationFormViewModel : BaseViewModel
         }
     }
 
-    protected void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+protected new void OnPropertyChanged([CallerMemberName] string propertyName = "")
+{
+    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    base.OnPropertyChanged(propertyName);
+}
 
     private void DeleteCommissionStage(object parameter)
     {
