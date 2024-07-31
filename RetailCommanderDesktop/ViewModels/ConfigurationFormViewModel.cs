@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using RetailCommanderDesktop.Commands;
+using System.ComponentModel;
 
 public class ConfigurationFormViewModel : BaseViewModel
 {
@@ -15,6 +16,8 @@ public class ConfigurationFormViewModel : BaseViewModel
     private double _currentSales;
     private double _newTargetAmount;
     private double _newCommissionPercentage;
+    private readonly ITranslationManager _translationManager;
+    public event PropertyChangedEventHandler PropertyChanged;
 
     public ICommand AddEmployeeCommand { get; }
     public ICommand DeleteEmployeeCommand { get; }
@@ -100,16 +103,23 @@ public class ConfigurationFormViewModel : BaseViewModel
         }
     }
 
-    public ConfigurationFormViewModel(SqliteData dataAccess, MainWindowViewModel mainWindowViewModel)
+    public ConfigurationFormViewModel(SqliteData dataAccess, MainWindowViewModel mainWindowViewModel, ITranslationManager translationManager)
     {
         _dataAccess = dataAccess;
         _mainWindowViewModel = mainWindowViewModel;
+        _translationManager = translationManager;
         AddEmployeeCommand = new RelayCommand(OpenAddEmployeeForm);
         DeleteEmployeeCommand = new RelayCommand(OpenDeleteEmployeeForm);
         AddCommissionStageCommand = new RelayCommand(AddCommissionStage);
         DeleteCommissionStageCommand = new RelayCommand(DeleteCommissionStage, CanDeleteCommissionStage);
         LoadMonthlyTarget();
-        LoadCommissionStages();
+        LoadCommissionStages();       
+    }
+
+    
+    protected void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
     private void DeleteCommissionStage(object parameter)
@@ -245,8 +255,8 @@ public class ConfigurationFormViewModel : BaseViewModel
         });
     }
 
-    protected new void OnPropertyChanged([CallerMemberName] string propertyName = "")
-    {
-        base.OnPropertyChanged(propertyName);
-    }
+    //protected new void OnPropertyChanged([CallerMemberName] string propertyName = "")
+    //{
+    //    base.OnPropertyChanged(propertyName);
+    //}
 }

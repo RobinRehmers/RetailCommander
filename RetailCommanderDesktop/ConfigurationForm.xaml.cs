@@ -3,6 +3,7 @@ using RetailCommanderDesktop.ViewModels;
 using System.Windows;
 using System.ComponentModel;
 using System.Windows.Controls;
+using Microsoft.Extensions.Configuration;
 
 namespace RetailCommanderDesktop
 {
@@ -12,33 +13,50 @@ namespace RetailCommanderDesktop
         private readonly MainWindowViewModel _mainWindowViewModel;
         private readonly ITranslationManager _translationManager;
 
-        public ConfigurationForm(SqliteData dataAccess, MainWindowViewModel mainWindowViewModel)
+        public ConfigurationForm(SqliteData dataAccess, MainWindowViewModel mainWindowViewModel, ITranslationManager translationManager)
         {
             InitializeComponent();
             _dataAccess = dataAccess;
             _mainWindowViewModel = mainWindowViewModel;
-            DataContext = _mainWindowViewModel.ConfigurationFormViewModel;
-        }
-
-        public ConfigurationForm(SqliteData dataAccess, MainWindowViewModel mainWindowViewModel, ITranslationManager translationManager)
-        {
-            InitializeComponent();
             _translationManager = translationManager;
             _translationManager.TranslationsUpdated += TranslationManager_TranslationsUpdated;
             DataContext = this;
+
+            var config = (IConfiguration)Application.Current.Resources["AppConfig"];
+            var initialLanguage = config["Language"];
+            _translationManager.LoadTranslations(initialLanguage);
+            SetLanguageComboBox(initialLanguage);
+
+            LanguageComboBox.SelectionChanged += LanguageComboBox_SelectionChanged;
         }
 
         private void TranslationManager_TranslationsUpdated(object sender, PropertyChangedEventArgs e)
         {
-            // Update UI elements with new translations
             LanguageLabel.Content = _translationManager.GetTranslation("LanguageLabel");
-            // Update other UI elements similarly
         }
 
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (_translationManager == null) return;
+
             var selectedLanguage = (string)((ComboBoxItem)LanguageComboBox.SelectedItem).Content;
             _translationManager.LoadTranslations(selectedLanguage);
+
+
+            var config = (IConfiguration)Application.Current.Resources["AppConfig"];
+            config["Language"] = selectedLanguage;
+        }
+
+        private void SetLanguageComboBox(string language)
+        {
+            foreach (ComboBoxItem item in LanguageComboBox.Items)
+            {
+                if ((string)item.Content == language)
+                {
+                    LanguageComboBox.SelectedItem = item;
+                    break;
+                }
+            }
         }
     }
 }

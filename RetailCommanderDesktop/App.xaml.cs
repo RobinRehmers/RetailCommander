@@ -30,9 +30,10 @@ namespace RetailCommanderDesktop
 
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
+               .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
             IConfiguration config = builder.Build();
+            Resources["AppConfig"] = config;
 
             services.AddSingleton(config);
 

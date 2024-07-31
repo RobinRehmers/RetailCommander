@@ -12,6 +12,7 @@ namespace RetailCommanderDesktop.ViewModels
     {
         private readonly SqliteData _dataAccess;
         private readonly IConfiguration _config;
+        private readonly ITranslationManager _translationManager;
 
         public ObservableCollection<EmployeeModel> Employees { get; set; }
         public double MonthlyTarget { get; set; }
@@ -21,20 +22,22 @@ namespace RetailCommanderDesktop.ViewModels
 
         public ConfigurationFormViewModel ConfigurationFormViewModel { get; }
 
-        public MainWindowViewModel(SqliteData dataAccess, IConfiguration config)
+        public MainWindowViewModel(SqliteData dataAccess, IConfiguration config, ITranslationManager translationManager)
         {
             _dataAccess = dataAccess;
             _config = config;
-            ConfigurationFormViewModel = new ConfigurationFormViewModel(_dataAccess, this);
+            _translationManager = translationManager;
+            ConfigurationFormViewModel = new ConfigurationFormViewModel(_dataAccess, this, _translationManager);
             Employees = new ObservableCollection<EmployeeModel>();
             LoadEmployeesCommand = new RelayCommand(LoadEmployees);
             OpenConfigurationFormCommand = new RelayCommand(OpenConfigurationForm);
             LoadMonthlyTarget();
             LoadEmployees(null);
 
-           ConfigurationFormViewModel.PropertyChanged += ConfigurationFormViewModel_PropertyChanged;
+            ConfigurationFormViewModel.PropertyChanged += ConfigurationFormViewModel_PropertyChanged;
 
-           ConfigurationFormViewModel.CalculateAndDistributeCommissions();
+            ConfigurationFormViewModel.CalculateAndDistributeCommissions();
+            
         }
 
         private void ConfigurationFormViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -75,8 +78,13 @@ namespace RetailCommanderDesktop.ViewModels
 
         private void OpenConfigurationForm(object parameter)
         {
-            var configurationForm = new ConfigurationForm(_dataAccess, this);
+            var configurationForm = new ConfigurationForm(_dataAccess, this, _translationManager);
             configurationForm.ShowDialog();
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public double SalesProgress => ConfigurationFormViewModel.SalesProgress;
