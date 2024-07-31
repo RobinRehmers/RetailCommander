@@ -22,6 +22,19 @@ namespace RetailCommanderLibrary.Data
             _db = db;
         }
 
+        public Dictionary<string, string> LoadTranslations(string language)
+        {
+            string sql = "SELECT ControlName, Text FROM Translations WHERE Language = @Language";
+            var result = _db.LoadData<(string ControlName, string Text), dynamic>(sql, new { Language = language }, ConnectionStringName);
+            return result.ToDictionary(x => x.ControlName, x => x.Text);
+        }
+
+        public void SaveTranslation(string controlName, string language, string text)
+        {
+            string sql = "INSERT INTO Translations (ControlName, Language, Text) VALUES (@ControlName, @Language, @Text)";
+            _db.SaveData(sql, new { ControlName = controlName, Language = language, Text = text }, ConnectionStringName);
+        }
+
         public void DeleteCommissionStage(CommissionStageModel stage)
         {
             if (stage != null)
@@ -30,7 +43,6 @@ namespace RetailCommanderLibrary.Data
             _db.SaveData(sql, new { StageID = stage.StageID }, ConnectionStringName);
             }
         }
-
 
         public void SaveCommissionStage(CommissionStageModel stage)
         {
