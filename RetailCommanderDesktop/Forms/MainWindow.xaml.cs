@@ -8,24 +8,12 @@ namespace RetailCommanderDesktop.Forms
 {
     public partial class MainWindow : Window
     {
-        private readonly SqliteData _dataAccess;
-        private readonly IConfiguration _config;
-        private readonly ITranslationManager _translationManager;
-
         public MainWindow(IConfiguration config)
         {
             InitializeComponent();
-            _config = config;
-            _dataAccess = new SqliteData(new SqliteDataAccess(_config));
-            _translationManager = new TranslationManager(_dataAccess);
-            //AddInitialTranslations();
-            var viewModel = new MainWindowViewModel(_dataAccess, _config, _translationManager);
-            DataContext = viewModel;
-        }
-
-        private void AddInitialTranslations()
-        {
-            //_translationManager.SaveTranslation("LanguageLabel", "DE", "Sprache");
+            var dataAccess = new SqliteData(new SqliteDataAccess(config));
+            var translationManager = new TranslationManager(dataAccess);
+            DataContext = new MainWindowViewModel(dataAccess, config, translationManager);
         }
     }
 }

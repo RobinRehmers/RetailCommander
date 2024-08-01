@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using RetailCommanderDesktop.Forms;
+using RetailCommanderDesktop.Commands.RetailCommanderDesktop.Commands;
 
 namespace RetailCommanderDesktop.ViewModels
 {

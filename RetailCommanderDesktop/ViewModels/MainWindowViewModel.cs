@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Microsoft.Extensions.Configuration;
 using System.ComponentModel;
 using RetailCommanderDesktop.Forms;
+using RetailCommanderDesktop.Commands.RetailCommanderDesktop.Commands;
 
 namespace RetailCommanderDesktop.ViewModels
 {
@@ -14,11 +15,11 @@ namespace RetailCommanderDesktop.ViewModels
         private readonly SqliteData _dataAccess;
         private readonly IConfiguration _config;
         private readonly ITranslationManager _translationManager;
-       
 
         public ObservableCollection<EmployeeModel> Employees { get; set; }
         public double MonthlyTarget { get; set; }
         public double CurrentSales { get; set; }
+
         public ICommand LoadEmployeesCommand { get; }
         public ICommand OpenConfigurationFormCommand { get; }
 
@@ -29,15 +30,18 @@ namespace RetailCommanderDesktop.ViewModels
             _dataAccess = dataAccess;
             _config = config;
             _translationManager = translationManager;
-            ConfigurationFormViewModel = new ConfigurationFormViewModel(_dataAccess, this);
-            Employees = new ObservableCollection<EmployeeModel>();
+
+            ConfigurationFormViewModel = new ConfigurationFormViewModel(_dataAccess, this, _translationManager);
+         
             LoadEmployeesCommand = new RelayCommand(LoadEmployees);
             OpenConfigurationFormCommand = new RelayCommand(OpenConfigurationForm);
+
             LoadMonthlyTarget();
             LoadEmployees(null);
+            //AddInitialTranslations();
 
             ConfigurationFormViewModel.PropertyChanged += ConfigurationFormViewModel_PropertyChanged;
-            ConfigurationFormViewModel.CalculateAndDistributeCommissions();          
+            ConfigurationFormViewModel.CalculateAndDistributeCommissions();
         }
 
         private void ConfigurationFormViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -62,7 +66,6 @@ namespace RetailCommanderDesktop.ViewModels
             }
         }
 
-
         private void LoadMonthlyTarget()
         {
             var monthlyTarget = _dataAccess.GetMonthlyTarget();
@@ -82,12 +85,11 @@ namespace RetailCommanderDesktop.ViewModels
             configurationForm.ShowDialog();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        //protected void OnPropertyChanged(string propertyName)
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        //}
-        public double SalesProgress => ConfigurationFormViewModel.SalesProgress;
+        private void AddInitialTranslations()
+        {
+            //_translationManager.SaveTranslation("LanguageLabel", "DE", "Sprache");
+        }
 
+        public double SalesProgress => ConfigurationFormViewModel.SalesProgress;
     }
 }

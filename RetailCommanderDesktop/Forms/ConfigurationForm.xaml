@@ -48,8 +48,11 @@
             <TextBox Text="{Binding NewCommissionPercentage, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,5" Width="80" HorizontalAlignment="Left"/>
         </StackPanel>
         <StackPanel Margin="10,67,10,35" Grid.Row="4">
-            <Label x:Name="LanguageLabel" Content="Language" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"/>
-            <ComboBox x:Name="LanguageComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Width="120" SelectionChanged="LanguageComboBox_SelectionChanged">
+            <Label Content="{Binding LanguageLabel}" x:Name="LanguageLabel" HorizontalAlignment="Left" Margin="10" Height="24" Width="97"/>
+            <ComboBox x:Name="LanguageComboBox"
+                      ItemsSource="{Binding AvailableLanguages}" 
+                      SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
+                      HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Width="120">
                 <ComboBoxItem Content="EN"/>
                 <ComboBoxItem Content="DE"/>
             </ComboBox>
