@@ -1,7 +1,7 @@
 ﻿<Window x:Class="RetailCommanderDesktop.Forms.DeleteEmployeeForm"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="clr-namespace:RetailCommanderDesktop.ViewModels"
+        xmlns:vm="clr-namespace:RetailCommanderDesktop.Forms"
         Title="Delete Employee" Height="450" Width="300" WindowStyle="ToolWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.RowDefinitions>
