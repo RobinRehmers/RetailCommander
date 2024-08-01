@@ -9,7 +9,7 @@ using System.ComponentModel;
 using Microsoft.Extensions.Configuration;
 using RetailCommanderDesktop.Forms;
 using System.Windows;
-using RetailCommanderDesktop.Commands.RetailCommanderDesktop.Commands;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace RetailCommanderDesktop.ViewModels
 {
@@ -52,10 +52,10 @@ namespace RetailCommanderDesktop.ViewModels
 
             LoadMonthlyTarget();
             LoadCommissionStages();
-            InitializeTranslations();
+            //InitializeTranslations();
 
-            Languages.Add("EN");
-            Languages.Add("DE");
+            //Languages.Add("EN");
+            //Languages.Add("DE");
 
             CalculateAndDistributeCommissions();
         }

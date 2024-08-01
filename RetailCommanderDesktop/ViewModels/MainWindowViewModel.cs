@@ -6,7 +6,6 @@ using System.Windows.Input;
 using Microsoft.Extensions.Configuration;
 using System.ComponentModel;
 using RetailCommanderDesktop.Forms;
-using RetailCommanderDesktop.Commands.RetailCommanderDesktop.Commands;
 
 namespace RetailCommanderDesktop.ViewModels
 {
@@ -43,6 +42,8 @@ namespace RetailCommanderDesktop.ViewModels
             ConfigurationFormViewModel.PropertyChanged += ConfigurationFormViewModel_PropertyChanged;
             ConfigurationFormViewModel.CalculateAndDistributeCommissions();
         }
+
+
 
         private void ConfigurationFormViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {

@@ -5,7 +5,6 @@ using System;
 using System.Windows.Input;
 using RetailCommanderDesktop.Forms;
 using System.Windows;
-using RetailCommanderDesktop.Commands.RetailCommanderDesktop.Commands;
 
 namespace RetailCommanderDesktop.ViewModels
 {

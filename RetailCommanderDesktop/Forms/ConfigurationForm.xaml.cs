@@ -8,10 +8,15 @@ namespace RetailCommanderDesktop.Forms
 {
     public partial class ConfigurationForm : Window
     {
+        private readonly SqliteData _dataAccess;
+        private readonly MainWindowViewModel _mainWindowViewModel;
+
         public ConfigurationForm(SqliteData dataAccess, MainWindowViewModel mainWindowViewModel, ITranslationManager translationManager)
         {
             InitializeComponent();
-            DataContext = new ConfigurationFormViewModel(dataAccess, mainWindowViewModel, translationManager);
+            _dataAccess = dataAccess;
+            _mainWindowViewModel = mainWindowViewModel;
+            DataContext = new ConfigurationFormViewModel(_dataAccess, _mainWindowViewModel, translationManager);
         }
     }
 }

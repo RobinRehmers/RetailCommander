@@ -27,7 +27,9 @@ namespace RetailCommanderDesktop
             services.AddTransient<DeleteEmployeeForm>();
             services.AddTransient<ConfigurationForm>();
             services.AddTransient<ISqliteDataAccess, SqliteDataAccess>();
+
             services.AddSingleton<SqliteData>();
+            services.AddSingleton<ITranslationManager, TranslationManager>();
 
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
