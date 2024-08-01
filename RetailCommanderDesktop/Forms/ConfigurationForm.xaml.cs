@@ -16,7 +16,7 @@ namespace RetailCommanderDesktop.Forms
             InitializeComponent();
             _dataAccess = dataAccess;
             _mainWindowViewModel = mainWindowViewModel;
-            DataContext = new ConfigurationFormViewModel(_dataAccess, _mainWindowViewModel, translationManager);
+            DataContext = _mainWindowViewModel.ConfigurationFormViewModel;
         }
     }
 }

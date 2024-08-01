@@ -43,8 +43,6 @@ namespace RetailCommanderDesktop.ViewModels
             ConfigurationFormViewModel.CalculateAndDistributeCommissions();
         }
 
-
-
         private void ConfigurationFormViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ConfigurationFormViewModel.SalesProgress))
@@ -76,7 +74,7 @@ namespace RetailCommanderDesktop.ViewModels
                 CurrentSales = monthlyTarget.CurrentSales;
                 OnPropertyChanged(nameof(MonthlyTarget));
                 OnPropertyChanged(nameof(CurrentSales));
-                OnPropertyChanged(nameof(SalesProgress));
+                //OnPropertyChanged(nameof(SalesProgress));
             }
         }
 

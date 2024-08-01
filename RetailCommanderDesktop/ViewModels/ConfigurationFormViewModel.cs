@@ -9,7 +9,6 @@ using System.ComponentModel;
 using Microsoft.Extensions.Configuration;
 using RetailCommanderDesktop.Forms;
 using System.Windows;
-using CommunityToolkit.Mvvm.Messaging;
 
 namespace RetailCommanderDesktop.ViewModels
 {
@@ -36,8 +35,6 @@ namespace RetailCommanderDesktop.ViewModels
         public ICommand DeleteCommissionStageCommand { get; }
         public ICommand LanguageChangedCommand { get; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ConfigurationFormViewModel(SqliteData dataAccess, MainWindowViewModel mainWindowViewModel, ITranslationManager translationManager)
         {
             _dataAccess = dataAccess;
@@ -52,10 +49,10 @@ namespace RetailCommanderDesktop.ViewModels
 
             LoadMonthlyTarget();
             LoadCommissionStages();
-            //InitializeTranslations();
+            InitializeTranslations();
 
-            //Languages.Add("EN");
-            //Languages.Add("DE");
+            Languages.Add("EN");
+            Languages.Add("DE");
 
             CalculateAndDistributeCommissions();
         }
@@ -147,8 +144,8 @@ namespace RetailCommanderDesktop.ViewModels
                     _selectedLanguage = value;
                     OnPropertyChanged();
                     OnLanguageChanged(_selectedLanguage);
-                    //_translationManager.LoadTranslations(_selectedLanguage);
-                    //SaveLanguageSetting(_selectedLanguage);
+                    _translationManager.LoadTranslations(_selectedLanguage);
+                    SaveLanguageSetting(_selectedLanguage);
                 }
             }
         }
