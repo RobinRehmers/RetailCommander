@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Microsoft.Extensions.Configuration;
 using System.ComponentModel;
+using RetailCommanderDesktop.Forms;
 
 namespace RetailCommanderDesktop.ViewModels
 {

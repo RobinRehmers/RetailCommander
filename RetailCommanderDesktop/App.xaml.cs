@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using RetailCommanderLibrary.Data;
 using RetailCommanderLibrary.Database;
+using RetailCommanderDesktop.Forms;
 using System.Configuration;
 using System.Data;
 using System.IO;

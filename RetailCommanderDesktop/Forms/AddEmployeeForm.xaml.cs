@@ -2,19 +2,19 @@
 using RetailCommanderLibrary.Data;
 using System.Windows;
 
-namespace RetailCommanderDesktop
+namespace RetailCommanderDesktop.Forms
 {
-    public partial class DeleteEmployeeForm : Window
+    public partial class AddEmployeeForm : Window
     {
         private readonly SqliteData _dataAccess;
         private readonly ConfigurationFormViewModel _configurationFormViewModel;
 
-        public DeleteEmployeeForm(SqliteData dataAccess, ConfigurationFormViewModel configurationFormViewModel)
+        public AddEmployeeForm(SqliteData dataAccess, ConfigurationFormViewModel configurationFormViewModel)
         {
             InitializeComponent();
             _dataAccess = dataAccess;
             _configurationFormViewModel = configurationFormViewModel;
-            var viewModel = new DeleteEmployeeViewModel(_dataAccess, _configurationFormViewModel);
+            var viewModel = new AddEmployeeFormViewModel(_dataAccess, _configurationFormViewModel);
             viewModel.ShowMessage += ShowMessage;
             viewModel.CloseWindow += CloseWindow;
             DataContext = viewModel;

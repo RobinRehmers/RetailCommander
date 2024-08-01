@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
 
-namespace RetailCommanderDesktop
+namespace RetailCommanderDesktop.Forms
 {
     public partial class ConfigurationForm : Window
     {

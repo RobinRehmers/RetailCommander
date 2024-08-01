@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using System.Windows;
 using RetailCommanderLibrary.Database;
 
-namespace RetailCommanderDesktop
+namespace RetailCommanderDesktop.Forms
 {
     public partial class MainWindow : Window
     {

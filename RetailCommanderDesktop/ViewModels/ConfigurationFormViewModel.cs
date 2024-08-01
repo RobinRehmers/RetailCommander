@@ -7,6 +7,8 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using RetailCommanderDesktop.Commands;
 using System.ComponentModel;
+using RetailCommanderDesktop.Forms;
+
 
 public class ConfigurationFormViewModel : BaseViewModel
 {

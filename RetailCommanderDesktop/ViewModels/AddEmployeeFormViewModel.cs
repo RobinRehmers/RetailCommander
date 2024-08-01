@@ -3,6 +3,7 @@ using RetailCommanderLibrary.Models;
 using RetailCommanderDesktop.Commands;
 using System;
 using System.Windows.Input;
+using RetailCommanderDesktop.Forms;
 
 namespace RetailCommanderDesktop.ViewModels
 {
