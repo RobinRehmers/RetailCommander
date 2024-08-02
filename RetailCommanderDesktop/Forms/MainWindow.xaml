@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:RetailCommanderDesktop.Forms"
         mc:Ignorable="d"
         Title="RetailCommander" Height="691" Width="1200" WindowStyle="ToolWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-
     <Grid Background="White" OpacityMask="White">
         <Grid.RowDefinitions>
         </Grid.RowDefinitions>
