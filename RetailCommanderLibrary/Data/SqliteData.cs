@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.Configuration;
 using RetailCommanderLibrary.Database;
 using RetailCommanderLibrary.Models;
 using System;
@@ -14,6 +15,7 @@ namespace RetailCommanderLibrary.Data
 {
     public class SqliteData
     {
+
         private const string ConnectionStringName = "SQLiteDb";
         private readonly ISqliteDataAccess _db;
 

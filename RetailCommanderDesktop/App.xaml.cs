@@ -36,8 +36,15 @@ namespace RetailCommanderDesktop
                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
             IConfiguration config = builder.Build();
-            Resources["AppConfig"] = config;
 
+            string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            string dbPath = Path.Combine(projectDirectory, "RetailCommanderDB.db");
+            string ConnectionStringName = config.GetConnectionString("SqliteDb").Replace("{DB_PATH}", dbPath);
+
+            var configurationSection = config as IConfigurationRoot;
+            configurationSection["ConnectionStrings:SqliteDb"] = ConnectionStringName;
+
+            Resources["AppConfig"] = config;
             services.AddSingleton(config);
 
             serviceProvider = services.BuildServiceProvider();
