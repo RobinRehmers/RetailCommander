@@ -14,6 +14,7 @@ namespace RetailCommanderDesktop.ViewModels
         private readonly SqliteData _dataAccess;
         private readonly IConfiguration _config;
         private readonly ITranslationManager _translationManager;
+        private readonly ConfigurationFormViewModel _configurationFormViewModel;
 
         public ObservableCollection<EmployeeModel> Employees { get; set; }
         public double MonthlyTarget { get; set; }
@@ -72,6 +73,7 @@ namespace RetailCommanderDesktop.ViewModels
 
         public void LoadCommissionStageInfo()
         {
+            LoadMonthlyTarget();
             var stages = _dataAccess.GetCommissionStages();
             var currentStage = stages.OrderByDescending(s => s.TargetAmount).FirstOrDefault(s => s.TargetAmount <= CurrentSales);
             var nextStage = stages.OrderBy(s => s.TargetAmount).FirstOrDefault(s => s.TargetAmount > CurrentSales);
@@ -110,7 +112,7 @@ namespace RetailCommanderDesktop.ViewModels
             _translationManager = translationManager;
 
             ConfigurationFormViewModel = new ConfigurationFormViewModel(_dataAccess, this, _translationManager);
-         
+            _configurationFormViewModel = ConfigurationFormViewModel;
             LoadEmployeesCommand = new RelayCommand(LoadEmployees);
             OpenConfigurationFormCommand = new RelayCommand(OpenConfigurationForm);
 
