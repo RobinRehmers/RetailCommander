@@ -147,6 +147,7 @@ namespace RetailCommanderDesktop.ViewModels
             LoadMonthlyTarget();
             LoadEmployees(null);
             LoadCommissionStageInfo();
+            UpdateDateInfo();
             //AddInitialTranslations();
 
             ConfigurationFormViewModel.PropertyChanged += ConfigurationFormViewModel_PropertyChanged;
