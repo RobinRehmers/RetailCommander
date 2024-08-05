@@ -30,6 +30,8 @@ namespace RetailCommanderDesktop.ViewModels
         private string _nextCommissionStage;
         private double _remainingAmount;
         private double _dailyTarget;
+        private string _currentDate;
+        private int _remainingDaysInMonth;
 
         public string CurrentCommissionStage
         {
@@ -69,6 +71,32 @@ namespace RetailCommanderDesktop.ViewModels
                 _dailyTarget = value;
                 OnPropertyChanged();
             }
+        }
+
+        public string CurrentDate
+        {
+            get => _currentDate;
+            set
+            {
+                _currentDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int RemainingDaysInMonth
+        {
+            get => _remainingDaysInMonth;
+            set
+            {
+                _remainingDaysInMonth = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private void UpdateDateInfo()
+        {
+            CurrentDate = DateTime.Now.ToString("dd.MM.yyyy");
+            RemainingDaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month) - DateTime.Now.Day;
         }
 
         public void LoadCommissionStageInfo()
