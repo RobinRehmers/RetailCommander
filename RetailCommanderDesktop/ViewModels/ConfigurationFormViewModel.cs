@@ -94,6 +94,7 @@ namespace RetailCommanderDesktop.ViewModels
                     OnPropertyChanged(nameof(SalesProgress));
                     UpdateCurrentSalesInDatabase();
                     CalculateAndDistributeCommissions();
+                    _mainWindowViewModel.LoadCommissionStageInfo();
                 }
             }
         }
@@ -241,6 +242,7 @@ namespace RetailCommanderDesktop.ViewModels
             }
 
             _mainWindowViewModel.LoadEmployees(null);
+            _mainWindowViewModel.LoadCommissionStageInfo();
         }
 
         private void DistributeCommission(double totalCommission)

@@ -24,6 +24,85 @@ namespace RetailCommanderDesktop.ViewModels
 
         public ConfigurationFormViewModel ConfigurationFormViewModel { get; }
 
+
+        private string _currentCommissionStage;
+        private string _nextCommissionStage;
+        private double _remainingAmount;
+        private double _dailyTarget;
+
+        public string CurrentCommissionStage
+        {
+            get => _currentCommissionStage;
+            set
+            {
+                _currentCommissionStage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string NextCommissionStage
+        {
+            get => _nextCommissionStage;
+            set
+            {
+                _nextCommissionStage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public double RemainingAmount
+        {
+            get => _remainingAmount;
+            set
+            {
+                _remainingAmount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public double DailyTarget
+        {
+            get => _dailyTarget;
+            set
+            {
+                _dailyTarget = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public void LoadCommissionStageInfo()
+        {
+            var stages = _dataAccess.GetCommissionStages();
+            var currentStage = stages.OrderByDescending(s => s.TargetAmount).FirstOrDefault(s => s.TargetAmount <= CurrentSales);
+            var nextStage = stages.OrderBy(s => s.TargetAmount).FirstOrDefault(s => s.TargetAmount > CurrentSales);
+
+            if (currentStage == null)
+            {
+                CurrentCommissionStage = "Aktuelle Provisionsstufe: Keine Stufe erreicht.";
+                NextCommissionStage = string.Empty;
+                RemainingAmount = 0;
+                DailyTarget = 0;
+                return;
+            }
+
+            CurrentCommissionStage = $"Aktuelle Provisionsstufe: {currentStage.CommissionPercentage}%";
+
+            if (nextStage != null)
+            {
+                RemainingAmount = nextStage.TargetAmount - CurrentSales;
+                var remainingDays = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month) - DateTime.Now.Day;
+                DailyTarget = RemainingAmount / remainingDays;
+
+                NextCommissionStage = $"Nächste Provisionsstufe: {nextStage.CommissionPercentage}% Provision werden bei {nextStage.TargetAmount}€ Umsatz freigeschaltet";
+            }
+            else
+            {
+                NextCommissionStage = "Höchste Stufe erreicht.";
+                RemainingAmount = 0;
+                DailyTarget = 0;
+            }
+        }
+
         public MainWindowViewModel(SqliteData dataAccess, IConfiguration config, ITranslationManager translationManager)
         {
             _dataAccess = dataAccess;
@@ -37,6 +116,7 @@ namespace RetailCommanderDesktop.ViewModels
 
             LoadMonthlyTarget();
             LoadEmployees(null);
+            LoadCommissionStageInfo();
             //AddInitialTranslations();
 
             ConfigurationFormViewModel.PropertyChanged += ConfigurationFormViewModel_PropertyChanged;
