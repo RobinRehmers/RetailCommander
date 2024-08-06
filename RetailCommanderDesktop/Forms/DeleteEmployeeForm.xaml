@@ -2,13 +2,31 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:RetailCommanderDesktop.Forms"
-        Title="Delete Employee" Height="450" Width="300" WindowStyle="ToolWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Delete Employee" 
+        Height="450" 
+        Width="300" 
+        WindowStyle="ToolWindow" 
+        ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen" Topmost="True">
+
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ListBox x:Name="employeeListBox" ItemsSource="{Binding Employees}" SelectionMode="Multiple" DisplayMemberPath="FullName" Grid.Row="0" />
-        <Button Content="Delete Selected Employees" Command="{Binding DeleteSelectedEmployeesCommand}" CommandParameter="{Binding SelectedItems, ElementName=employeeListBox}" Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Center" Width="242" />
+
+        <ListBox x:Name="employeeListBox" 
+                 ItemsSource="{Binding Employees}" 
+                 SelectionMode="Multiple" 
+                 DisplayMemberPath="FullName" 
+                 Grid.Row="0" />
+
+        <Button Content="Delete Selected Employees" 
+                Command="{Binding DeleteSelectedEmployeesCommand}" 
+                CommandParameter="{Binding SelectedItems, ElementName=employeeListBox}" 
+                Grid.Row="1" 
+                Margin="0,10,0,0" 
+                HorizontalAlignment="Center" 
+                Width="242" />
     </Grid>
 </Window>

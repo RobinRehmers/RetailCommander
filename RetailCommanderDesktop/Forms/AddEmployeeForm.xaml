@@ -5,15 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RetailCommanderDesktop.Forms"
         mc:Ignorable="d"
-        Title="AddEmployeeForm" Height="202" Width="274" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" ResizeMode="NoResize" Topmost="True">
-    <Grid Height="258" VerticalAlignment="Top" HorizontalAlignment="Left" Width="366">
+        Title="AddEmployeeForm" 
+        Height="202" 
+        Width="274" 
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="ToolWindow" 
+        ResizeMode="NoResize" 
+        Topmost="True">
+
+    <Grid Height="258" 
+          VerticalAlignment="Top" 
+          HorizontalAlignment="Left" 
+          Width="366">
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="245*"/>
-            <ColumnDefinition Width="25*"/>
-            <ColumnDefinition Width="96*"/>
+            <ColumnDefinition Width="245*" />
+            <ColumnDefinition Width="25*" />
+            <ColumnDefinition Width="96*" />
         </Grid.ColumnDefinitions>
-        <Label Content="First Name:" HorizontalAlignment="Left" Height="30" Margin="10,15,0,0" VerticalAlignment="Top" Width="79"/>
-        <Label Content="Hours:" HorizontalAlignment="Left" Height="26" Margin="11,81,0,0" VerticalAlignment="Top" Width="50"/>
+
+        <Label Content="First Name:" 
+               HorizontalAlignment="Left" 
+               Height="30" 
+               Margin="10,15,0,0" 
+               VerticalAlignment="Top" 
+               Width="79" />
+
+        <Label Content="Hours:" 
+               HorizontalAlignment="Left" 
+               Height="26" 
+               Margin="11,81,0,0" 
+               VerticalAlignment="Top" 
+               Width="50" />
+
         <TextBox x:Name="firstnamebox" 
                  HorizontalAlignment="Left" 
                  Height="24" 
@@ -22,7 +46,8 @@
                  VerticalAlignment="Top" 
                  Width="157" 
                  Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" 
-                 TabIndex="0"/>
+                 TabIndex="0" />
+
         <TextBox x:Name="hoursbox" 
                  HorizontalAlignment="Left" 
                  Height="24" 
@@ -31,21 +56,29 @@
                  VerticalAlignment="Top" 
                  Width="157" 
                  Text="{Binding Hours, UpdateSourceTrigger=PropertyChanged}" 
-                 TabIndex="2"/>
+                 TabIndex="2" />
+
         <Button x:Name="AddEmployee" 
                 Content="Add new employee" 
                 HorizontalAlignment="Left" 
-                Height="25" Margin="17,129,0,0" 
+                Height="25" 
+                Margin="17,129,0,0" 
                 VerticalAlignment="Top" 
                 Width="226" 
                 Command="{Binding AddEmployeeCommand}" 
-                TabIndex="3"/>
+                TabIndex="3" />
+
         <TextBox x:Name="lastnamebox" 
                  TextWrapping="Wrap" 
                  Margin="88,50,0,184" 
                  Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" 
-                 TabIndex="1"/>
-        <Label  Content="Last Name:" HorizontalAlignment="Left" Height="23" Margin="11,47,0,0" VerticalAlignment="Top" Width="72" />
-       
+                 TabIndex="1" />
+
+        <Label Content="Last Name:" 
+               HorizontalAlignment="Left" 
+               Height="23" 
+               Margin="11,47,0,0" 
+               VerticalAlignment="Top" 
+               Width="72" />
     </Grid>
 </Window>
