@@ -108,14 +108,14 @@ namespace RetailCommanderDesktop.ViewModels
 
             if (currentStage == null)
             {
-                CurrentCommissionStage = "Aktuelle Provisionsstufe: Keine Stufe erreicht.";
+                CurrentCommissionStage = "No stage reached.";
                 NextCommissionStage = string.Empty;
                 RemainingAmount = 0;
                 DailyTarget = 0;
                 return;
             }
 
-            CurrentCommissionStage = $"Aktuelle Provisionsstufe: {currentStage.CommissionPercentage}%";
+            CurrentCommissionStage = $"{currentStage.CommissionPercentage}%";
 
             if (nextStage != null)
             {
@@ -123,11 +123,11 @@ namespace RetailCommanderDesktop.ViewModels
                 var remainingDays = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month) - DateTime.Now.Day;
                 DailyTarget = RemainingAmount / remainingDays;
 
-                NextCommissionStage = $"Nächste Provisionsstufe: {nextStage.CommissionPercentage}% Provision werden bei {nextStage.TargetAmount}€ Umsatz freigeschaltet";
+                NextCommissionStage = $"{nextStage.CommissionPercentage}% commission is unlocked at {nextStage.TargetAmount}€ turnover";
             }
             else
             {
-                NextCommissionStage = "Höchste Stufe erreicht.";
+                NextCommissionStage = "Highest stage reached.";
                 RemainingAmount = 0;
                 DailyTarget = 0;
             }
