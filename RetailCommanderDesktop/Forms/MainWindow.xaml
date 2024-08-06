@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RetailCommanderDesktop.Forms"
         mc:Ignorable="d"
-        Title="RetailCommander" Height="691" Width="1200" WindowStyle="ToolWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="RetailCommander" Height="595" Width="1200" WindowStyle="ToolWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Color="DarkBlue" Offset="0.0" />
-            <GradientStop Color="LightSeaGreen"  Offset="1.0" />
+            <GradientStop Color="White" Offset="0.0" />
+            <GradientStop Color="LightGray" Offset="1.0" />
         </LinearGradientBrush>
     </Window.Background>
     <Grid Background="Transparent">
@@ -17,17 +17,30 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="5*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Background="DarkBlue" Opacity="0.8" VerticalAlignment="Stretch">
+        <StackPanel Grid.Column="0" Background="Gray" Opacity="0.8" VerticalAlignment="Stretch">
             <TextBlock Text="RetailCommander" Foreground="White" FontSize="20" FontWeight="Bold" Margin="10" HorizontalAlignment="Center" />
-            <Button x:Name="ConfigurationBtn" Content="Configuration" HorizontalAlignment="Left" Height="51" Margin="10" VerticalAlignment="Top" Width="163" Command="{Binding OpenConfigurationFormCommand}" Background="Turquoise" Foreground="White"/>
+            <Button x:Name="ConfigurationBtn" Content="Configuration" HorizontalAlignment="Left" Height="51" Margin="10" VerticalAlignment="Top" Width="163" Command="{Binding OpenConfigurationFormCommand}" Background="Red" Foreground="White"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Background="Transparent" Margin="10">
-            <TextBlock Text="{Binding CurrentDate}" Foreground="White" FontSize="16" HorizontalAlignment="Center" />
-            <TextBlock Text="{Binding RemainingDaysInMonth, StringFormat=' {0} days to go this month!'}" Foreground="White" FontSize="16" HorizontalAlignment="Center" />
-            <TextBlock Text="Monatsziel:" Foreground="White" FontSize="14" Margin="0,10,0,0" />
-            <TextBlock Text="{Binding MonthlyTarget}" Foreground="White" FontSize="14" Margin="0,0,0,10" />
-            <TextBlock Text="Aktueller Umsatz:" Foreground="White" FontSize="14" Margin="0,10,0,0" />
-            <TextBlock Text="{Binding CurrentSales}" Foreground="White" FontSize="14" Margin="0,0,0,10" />
+            <TextBlock Text="{Binding CurrentDate}" Foreground="Black" FontSize="16" HorizontalAlignment="Center" />
+            <TextBlock Text="{Binding RemainingDaysInMonth, StringFormat=' {0} days to go this month!'}" Foreground="Black" FontSize="16" HorizontalAlignment="Center" />
+
+
+            <Grid Margin="0,10,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock Text="Monatsziel:" Foreground="Black" FontSize="14" />
+                    <TextBlock Text="{Binding MonthlyTarget}" Foreground="Black" FontSize="14" Margin="0,0,0,10" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock Text="Aktueller Umsatz:" Foreground="Black" FontSize="14" />
+                    <TextBlock Text="{Binding CurrentSales}" Foreground="Black" FontSize="14" Margin="0,0,0,10" />
+                </StackPanel>
+            </Grid>
+
             <ProgressBar x:Name="salesProgressBar" 
                          Value="{Binding SalesProgress, Mode=OneWay}" 
                          Minimum="0" 
@@ -43,11 +56,17 @@
                     <DataGridTextColumn Header="Commission" Binding="{Binding Commission}" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
-            <TextBlock Text="{Binding CurrentCommissionStage}" Foreground="White" FontSize="14" />
-            <TextBlock Text="{Binding NextCommissionStage}" Foreground="White" FontSize="14"/>
-            <TextBlock Text="{Binding RemainingAmount, StringFormat='Benötigter Umsatz bis zur nächsten Stufe: {0:C}'}" Foreground="White" FontSize="14"/>
-            <TextBlock Text="{Binding DailyTarget, StringFormat='Dafür benötigtes tägliches Ziel: {0:C}'}" Foreground="White" FontSize="14"/>
 
+
+            <Border BorderBrush="Gray" BorderThickness="1" Margin="0,10,0,10" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="Commission Overview" Foreground="Black" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                    <TextBlock Text="{Binding CurrentCommissionStage}" Foreground="Black" FontSize="14" />
+                    <TextBlock Text="{Binding NextCommissionStage}" Foreground="Black" FontSize="14"/>
+                    <TextBlock Text="{Binding RemainingAmount, StringFormat='Benötigter Umsatz bis zur nächsten Stufe: {0:C}'}" Foreground="Black" FontSize="14"/>
+                    <TextBlock Text="{Binding DailyTarget, StringFormat='Dafür benötigtes tägliches Ziel: {0:C}'}" Foreground="Black" FontSize="14"/>
+                </StackPanel>
+            </Border>
         </StackPanel>
     </Grid>
 </Window>
