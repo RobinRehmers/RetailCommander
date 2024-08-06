@@ -212,6 +212,8 @@ namespace RetailCommanderDesktop.ViewModels
             };
             CommissionStages.Add(newStage);
             _dataAccess.SaveCommissionStage(newStage);
+
+            CommissionStages = new ObservableCollection<CommissionStageModel>(CommissionStages.OrderBy(s => s.TargetAmount));
             OnPropertyChanged(nameof(CommissionStages));
             CalculateAndDistributeCommissions();
         }

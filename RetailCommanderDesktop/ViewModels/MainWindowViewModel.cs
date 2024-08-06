@@ -109,25 +109,29 @@ namespace RetailCommanderDesktop.ViewModels
             if (currentStage == null)
             {
                 CurrentCommissionStage = "No stage reached.";
-                NextCommissionStage = string.Empty;
-                RemainingAmount = 0;
-                DailyTarget = 0;
-                return;
+                nextStage = stages.OrderBy(s => s.TargetAmount).FirstOrDefault();
             }
-
-            CurrentCommissionStage = $"{currentStage.CommissionPercentage}%";
+            else
+            {
+                CurrentCommissionStage = $"{currentStage.CommissionPercentage}%";
+            }
 
             if (nextStage != null)
             {
                 RemainingAmount = nextStage.TargetAmount - CurrentSales;
                 var remainingDays = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month) - DateTime.Now.Day;
                 DailyTarget = RemainingAmount / remainingDays;
-
                 NextCommissionStage = $"{nextStage.CommissionPercentage}% commission is unlocked at {nextStage.TargetAmount}€ turnover";
+            }
+            else if (currentStage != null)
+            {
+                NextCommissionStage = "Highest stage reached.";
+                RemainingAmount = 0;
+                DailyTarget = 0;
             }
             else
             {
-                NextCommissionStage = "Highest stage reached.";
+                NextCommissionStage = "No stages available.";
                 RemainingAmount = 0;
                 DailyTarget = 0;
             }
