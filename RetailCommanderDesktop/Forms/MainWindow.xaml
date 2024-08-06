@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RetailCommanderDesktop.Forms"
+        xmlns:local="clr-namespace:RetailCommanderDesktop.Helpers"
         mc:Ignorable="d"
         Title="RetailCommander" 
         Height="605" 
@@ -11,7 +11,10 @@
         WindowStyle="ToolWindow" 
         ResizeMode="NoResize" 
         WindowStartupLocation="CenterScreen" Topmost="True">
-
+    <Window.Resources>
+        <local:DictionaryKeyToValueConverter x:Key="DictionaryKeyToValueConverter" />
+    </Window.Resources>
+    
     <Window.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="White" Offset="0.0" />
@@ -38,7 +41,7 @@
                        HorizontalAlignment="Center" />
 
             <Button x:Name="ConfigurationBtn" 
-                    Content="Configuration" 
+                    Content="{Binding Labels, Converter={StaticResource DictionaryKeyToValueConverter}, ConverterParameter=ConfigurationBtn}"
                     HorizontalAlignment="Left" 
                     Height="51" 
                     Margin="10" 

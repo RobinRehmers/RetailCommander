@@ -50,8 +50,6 @@ namespace RetailCommanderDesktop
             serviceProvider = services.BuildServiceProvider();
             var mainWindow = serviceProvider.GetService<MainWindow>();
             mainWindow.Show();
-
         }
-
     }
 }

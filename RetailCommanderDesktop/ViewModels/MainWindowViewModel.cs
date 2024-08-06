@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Microsoft.Extensions.Configuration;
 using System.ComponentModel;
 using RetailCommanderDesktop.Forms;
+using RetailCommanderDesktop.Helpers;
 
 namespace RetailCommanderDesktop.ViewModels
 {
@@ -15,6 +16,7 @@ namespace RetailCommanderDesktop.ViewModels
         private readonly IConfiguration _config;
         private readonly ITranslationManager _translationManager;
         private readonly ConfigurationFormViewModel _configurationFormViewModel;
+        private readonly TranslationLabelUpdater _translationLabelUpdater;
 
         public ObservableCollection<EmployeeModel> Employees { get; set; }
         public double MonthlyTarget { get; set; }
@@ -24,6 +26,9 @@ namespace RetailCommanderDesktop.ViewModels
         public ICommand OpenConfigurationFormCommand { get; }
 
         public ConfigurationFormViewModel ConfigurationFormViewModel { get; }
+
+        private readonly Dictionary<string, string> _labels;
+        public IReadOnlyDictionary<string, string> Labels => _labels;
 
 
         private string _currentCommissionStage;
@@ -156,6 +161,18 @@ namespace RetailCommanderDesktop.ViewModels
 
             ConfigurationFormViewModel.PropertyChanged += ConfigurationFormViewModel_PropertyChanged;
             ConfigurationFormViewModel.CalculateAndDistributeCommissions();
+
+            _translationLabelUpdater = new TranslationLabelUpdater(translationManager);
+            _translationLabelUpdater.UpdateLabels();
+        }
+
+        private void UpdateLabels()
+        {
+            _labels["ConfigurationBtn"] = _translationManager.GetTranslation("ConfigurationBtn");
+            _labels["OtherControl"] = _translationManager.GetTranslation("OtherControl");
+
+
+            OnPropertyChanged(nameof(Labels));
         }
 
         private void ConfigurationFormViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)

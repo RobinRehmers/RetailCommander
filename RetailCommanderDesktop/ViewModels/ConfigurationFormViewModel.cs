@@ -9,6 +9,7 @@ using System.ComponentModel;
 using Microsoft.Extensions.Configuration;
 using RetailCommanderDesktop.Forms;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace RetailCommanderDesktop.ViewModels
 {
@@ -35,6 +36,7 @@ namespace RetailCommanderDesktop.ViewModels
         public ICommand DeleteCommissionStageCommand { get; }
         public ICommand LanguageChangedCommand { get; }
 
+        private ObservableCollection<string> _availableLanguages;
         public ConfigurationFormViewModel(SqliteData dataAccess, MainWindowViewModel mainWindowViewModel, ITranslationManager translationManager)
         {
             _dataAccess = dataAccess;
@@ -51,11 +53,36 @@ namespace RetailCommanderDesktop.ViewModels
             LoadCommissionStages();
             InitializeTranslations();
 
-            Languages.Add("EN");
-            Languages.Add("DE");
+            Dispatcher.CurrentDispatcher.Invoke(() =>
+            {
+                AvailableLanguages = new ObservableCollection<string> { "EN", "DE" };
+            });            //_translationManager.TranslationsUpdated += (s, e) => LoadTranslations();
 
             CalculateAndDistributeCommissions();
         }
+
+
+        private void LoadTranslations()
+        {
+            _translationManager.LoadTranslations(SelectedLanguage);
+            UpdateLanguageLabelText();
+
+        }
+
+        private void UpdateLanguageLabelText()
+        {
+            LanguageLabelText = _translationManager.GetTranslation("LanguageLabel");
+        }
+        public ObservableCollection<string> AvailableLanguages
+        {
+            get => _availableLanguages;
+            private set
+            {
+                _availableLanguages = value;
+                OnPropertyChanged(nameof(AvailableLanguages));
+            }
+        }
+
 
         public CommissionStageModel SelectedCommissionStage
         {
@@ -125,6 +152,17 @@ namespace RetailCommanderDesktop.ViewModels
             }
         }
 
+        private string _languageLabelText;
+        public string LanguageLabelText
+        {
+            get => _languageLabelText;
+            set
+            {
+                _languageLabelText = value;
+                OnPropertyChanged(nameof(LanguageLabelText));
+            }
+        }
+
         public string LanguageLabel
         {
             get => _languageLabel;
@@ -147,6 +185,7 @@ namespace RetailCommanderDesktop.ViewModels
                     OnLanguageChanged(_selectedLanguage);
                     _translationManager.LoadTranslations(_selectedLanguage);
                     SaveLanguageSetting(_selectedLanguage);
+                    //LoadTranslations();
                 }
             }
         }
@@ -159,6 +198,8 @@ namespace RetailCommanderDesktop.ViewModels
                 return progress;
             }
         }
+
+
 
         private void InitializeTranslations()
         {

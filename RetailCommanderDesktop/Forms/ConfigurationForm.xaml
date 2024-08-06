@@ -138,24 +138,22 @@
         <StackPanel Margin="10,67,10,35" 
                     Grid.Row="4">
 
-            <Label Content="{Binding LanguageLabel}" 
-                   x:Name="LanguageLabel" 
-                   HorizontalAlignment="Left" 
-                   Margin="10" 
-                   Height="24" 
-                   Width="97" />
+            <Label  x:Name="LanguageLabel" 
+                    Content="{Binding LanguageLabelText}"
+                    HorizontalAlignment="Left" 
+                    Margin="10" 
+                    Height="24" 
+                    Width="97" />
+
 
             <ComboBox x:Name="LanguageComboBox"
-                      ItemsSource="{Binding AvailableLanguages}" 
-                      SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
-                      HorizontalAlignment="Left" 
-                      VerticalAlignment="Top" 
-                      Margin="10,0,0,0" 
-                      Width="120">
-
-                <ComboBoxItem Content="EN" />
-                <ComboBoxItem Content="DE" />
-            </ComboBox>
+              ItemsSource="{Binding AvailableLanguages}" 
+              SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
+              HorizontalAlignment="Left" 
+              VerticalAlignment="Top" 
+              Margin="10,0,0,0" 
+              Width="120" />
+           
         </StackPanel>
     </Grid>
 </Window>
