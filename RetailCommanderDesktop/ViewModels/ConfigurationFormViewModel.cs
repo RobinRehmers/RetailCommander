@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Threading;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using RetailCommanderDesktop.Helpers;
 
 namespace RetailCommanderDesktop.ViewModels
 {
@@ -20,6 +21,7 @@ namespace RetailCommanderDesktop.ViewModels
         private readonly SqliteData _dataAccess;
         private readonly MainWindowViewModel _mainWindowViewModel;
         private readonly ITranslationManager _translationManager;
+        private readonly TranslationLabelUpdater _translationLabelUpdater;
 
         private CommissionStageModel _selectedCommissionStage;
         private double _monthlyTarget;
@@ -40,6 +42,8 @@ namespace RetailCommanderDesktop.ViewModels
         public ICommand DeleteCommissionStageCommand { get; }
         public ICommand LanguageChangedCommand { get; }
 
+        public IReadOnlyDictionary<string, string> Labels => _translationLabelUpdater.Labels;
+
         public ConfigurationFormViewModel(SqliteData dataAccess, MainWindowViewModel mainWindowViewModel, ITranslationManager translationManager)
         {
             _dataAccess = dataAccess;
@@ -54,8 +58,7 @@ namespace RetailCommanderDesktop.ViewModels
 
             LoadMonthlyTarget();
             LoadCommissionStages();
-            //InitializeTranslations();
-            //LoadTranslations();
+            CalculateAndDistributeCommissions();
 
             Dispatcher.CurrentDispatcher.Invoke(() =>
             {
@@ -64,18 +67,22 @@ namespace RetailCommanderDesktop.ViewModels
 
             LoadLanguageSetting();
 
-            CalculateAndDistributeCommissions();
- 
+            _translationLabelUpdater = new TranslationLabelUpdater(translationManager);
+            _translationLabelUpdater.PropertyChanged += TranslationLabelUpdater_PropertyChanged;
+            _translationLabelUpdater.UpdateLabels();
         }
+
+        private void TranslationLabelUpdater_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(TranslationLabelUpdater.Labels))
+            {
+                OnPropertyChanged(nameof(Labels));
+            }
+        }
+
         private void LoadTranslations()
         {
             _translationManager.LoadTranslations(SelectedLanguage);
-            UpdateLanguageLabelText();
-        }
-
-        private void UpdateLanguageLabelText()
-        {
-            LanguageLabelText = _translationManager.GetTranslation("LanguageLabel"); //<--
         }
 
         public ObservableCollection<string> AvailableLanguages
@@ -99,7 +106,6 @@ namespace RetailCommanderDesktop.ViewModels
                 OnPropertyChanged(nameof(LanguageLabelText));
             }
         }
-
 
         public CommissionStageModel SelectedCommissionStage
         {
