@@ -27,9 +27,7 @@ namespace RetailCommanderDesktop.ViewModels
 
         public ConfigurationFormViewModel ConfigurationFormViewModel { get; }
 
-        private readonly Dictionary<string, string> _labels;
-        public IReadOnlyDictionary<string, string> Labels => _labels;
-
+        public IReadOnlyDictionary<string, string> Labels => _translationLabelUpdater.Labels;
 
         private string _currentCommissionStage;
         private string _nextCommissionStage;
@@ -37,6 +35,17 @@ namespace RetailCommanderDesktop.ViewModels
         private double _dailyTarget;
         private string _currentDate;
         private int _remainingDaysInMonth;
+
+        private string _configurationButtonLabel;
+        public string ConfigurationButtonLabel
+        {
+            get => _configurationButtonLabel;
+            set
+            {
+                _configurationButtonLabel = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string CurrentCommissionStage
         {
@@ -67,7 +76,6 @@ namespace RetailCommanderDesktop.ViewModels
                 OnPropertyChanged();
             }
         }
-
         public double DailyTarget
         {
             get => _dailyTarget;
@@ -163,18 +171,27 @@ namespace RetailCommanderDesktop.ViewModels
             ConfigurationFormViewModel.CalculateAndDistributeCommissions();
 
             _translationLabelUpdater = new TranslationLabelUpdater(translationManager);
+            _translationLabelUpdater.PropertyChanged += TranslationLabelUpdater_PropertyChanged;           
+            _translationLabelUpdater.UpdateLabels();
+
+            InitializeTranslations();
+        }
+
+        private void InitializeTranslations()
+        {
+            string selectedLanguage = _config["Language"] ?? "EN";
+            _translationManager.LoadTranslations(selectedLanguage);
             _translationLabelUpdater.UpdateLabels();
         }
-
-        private void UpdateLabels()
+      
+        private void TranslationLabelUpdater_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            _labels["ConfigurationBtn"] = _translationManager.GetTranslation("ConfigurationBtn");
-            _labels["OtherControl"] = _translationManager.GetTranslation("OtherControl");
-
-
-            OnPropertyChanged(nameof(Labels));
+            if (e.PropertyName == nameof(TranslationLabelUpdater.Labels))
+            {
+                OnPropertyChanged(nameof(Labels));
+            }
         }
-
+ 
         private void ConfigurationFormViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ConfigurationFormViewModel.SalesProgress))
@@ -206,7 +223,6 @@ namespace RetailCommanderDesktop.ViewModels
                 CurrentSales = monthlyTarget.CurrentSales;
                 OnPropertyChanged(nameof(MonthlyTarget));
                 OnPropertyChanged(nameof(CurrentSales));
-                //OnPropertyChanged(nameof(SalesProgress));
             }
         }
 

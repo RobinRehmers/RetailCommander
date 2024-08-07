@@ -14,5 +14,4 @@ namespace RetailCommanderLibrary.Data
         string GetTranslation(string controlName);
         event PropertyChangedEventHandler TranslationsUpdated;
     }
-
 }

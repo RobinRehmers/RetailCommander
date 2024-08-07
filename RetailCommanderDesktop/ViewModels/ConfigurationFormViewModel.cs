@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using RetailCommanderDesktop.Forms;
 using System.Windows;
 using System.Windows.Threading;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace RetailCommanderDesktop.ViewModels
 {
@@ -26,6 +28,8 @@ namespace RetailCommanderDesktop.ViewModels
         private double _newCommissionPercentage;
         private string _languageLabel;
         private string _selectedLanguage;
+        private string _previousLanguage;
+        private ObservableCollection<string> _availableLanguages;
 
         public ObservableCollection<CommissionStageModel> CommissionStages { get; set; } = new ObservableCollection<CommissionStageModel>();
         public ObservableCollection<string> Languages { get; set; } = new ObservableCollection<string>();
@@ -36,7 +40,6 @@ namespace RetailCommanderDesktop.ViewModels
         public ICommand DeleteCommissionStageCommand { get; }
         public ICommand LanguageChangedCommand { get; }
 
-        private ObservableCollection<string> _availableLanguages;
         public ConfigurationFormViewModel(SqliteData dataAccess, MainWindowViewModel mainWindowViewModel, ITranslationManager translationManager)
         {
             _dataAccess = dataAccess;
@@ -51,28 +54,30 @@ namespace RetailCommanderDesktop.ViewModels
 
             LoadMonthlyTarget();
             LoadCommissionStages();
-            InitializeTranslations();
+            //InitializeTranslations();
+            //LoadTranslations();
 
             Dispatcher.CurrentDispatcher.Invoke(() =>
             {
                 AvailableLanguages = new ObservableCollection<string> { "EN", "DE" };
-            });            //_translationManager.TranslationsUpdated += (s, e) => LoadTranslations();
+            });
+
+            LoadLanguageSetting();
 
             CalculateAndDistributeCommissions();
+ 
         }
-
-
         private void LoadTranslations()
         {
             _translationManager.LoadTranslations(SelectedLanguage);
             UpdateLanguageLabelText();
-
         }
 
         private void UpdateLanguageLabelText()
         {
-            LanguageLabelText = _translationManager.GetTranslation("LanguageLabel");
+            LanguageLabelText = _translationManager.GetTranslation("LanguageLabel"); //<--
         }
+
         public ObservableCollection<string> AvailableLanguages
         {
             get => _availableLanguages;
@@ -80,6 +85,18 @@ namespace RetailCommanderDesktop.ViewModels
             {
                 _availableLanguages = value;
                 OnPropertyChanged(nameof(AvailableLanguages));
+                LoadTranslations();
+            }
+        }
+
+        private string _languageLabelText;
+        public string LanguageLabelText
+        {
+            get => _languageLabelText;
+            set
+            {
+                _languageLabelText = value;
+                OnPropertyChanged(nameof(LanguageLabelText));
             }
         }
 
@@ -152,17 +169,6 @@ namespace RetailCommanderDesktop.ViewModels
             }
         }
 
-        private string _languageLabelText;
-        public string LanguageLabelText
-        {
-            get => _languageLabelText;
-            set
-            {
-                _languageLabelText = value;
-                OnPropertyChanged(nameof(LanguageLabelText));
-            }
-        }
-
         public string LanguageLabel
         {
             get => _languageLabel;
@@ -180,12 +186,12 @@ namespace RetailCommanderDesktop.ViewModels
             {
                 if (_selectedLanguage != value)
                 {
+                    _previousLanguage = _selectedLanguage;
                     _selectedLanguage = value;
                     OnPropertyChanged();
-                    OnLanguageChanged(_selectedLanguage);
-                    _translationManager.LoadTranslations(_selectedLanguage);
-                    SaveLanguageSetting(_selectedLanguage);
-                    //LoadTranslations();
+                    OnLanguageChanged(_selectedLanguage);                   
+                    LoadTranslations();
+                    
                 }
             }
         }
@@ -199,34 +205,41 @@ namespace RetailCommanderDesktop.ViewModels
             }
         }
 
-
-
-        private void InitializeTranslations()
-        {
-            var config = (IConfiguration)Application.Current.Resources["AppConfig"];
-            SelectedLanguage = config["Language"];
-            _translationManager.LoadTranslations(SelectedLanguage);
-        }
-
         public void OnLanguageChanged(string selectedLanguage)
         {
-            _translationManager.LoadTranslations(selectedLanguage);
-            SaveLanguageSetting(selectedLanguage);
-            LanguageLabel = _translationManager.GetTranslation("LanguageLabel");
+            if (_previousLanguage != selectedLanguage)
+            {
+                SaveLanguageSetting(selectedLanguage);
+            }
+        }
+
+        private void LoadLanguageSetting()
+        {
+            string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            string filePath = Path.Combine(projectDirectory, "appsettings.json");
+            var json = File.ReadAllText(filePath);
+            var jsonObj = JObject.Parse(json);
+            var savedLanguage = jsonObj["Language"]?.ToString() ?? "EN";
+            SelectedLanguage = savedLanguage;
         }
 
         private void SaveLanguageSetting(string language)
         {
-            var config = (IConfiguration)Application.Current.Resources["AppConfig"];
-            config["Language"] = language;
+            string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            string filePath = Path.Combine(projectDirectory, "appsettings.json");
+            var json = File.ReadAllText(filePath);
+            var jsonObj = JObject.Parse(json);
+            var configSection = jsonObj["Language"];
+            if (configSection != null)
+            {
+                configSection.Replace(language);
+            }
+            else
+            {
+                jsonObj.Add("Language", language);
+            }
+            File.WriteAllText(filePath, jsonObj.ToString());
         }
-
-
-        private void TranslationManager_TranslationsUpdated(object sender, PropertyChangedEventArgs e)
-        {
-            LanguageLabel = _translationManager.GetTranslation("LanguageLabel");
-        }
-
 
         private void DeleteCommissionStage(object parameter)
         {

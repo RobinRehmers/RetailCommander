@@ -14,7 +14,7 @@
     <Window.Resources>
         <local:DictionaryKeyToValueConverter x:Key="DictionaryKeyToValueConverter" />
     </Window.Resources>
-    
+
     <Window.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="White" Offset="0.0" />
@@ -41,7 +41,7 @@
                        HorizontalAlignment="Center" />
 
             <Button x:Name="ConfigurationBtn" 
-                    Content="{Binding Labels, Converter={StaticResource DictionaryKeyToValueConverter}, ConverterParameter=ConfigurationBtn}"
+                    Content="{Binding Labels, Converter={StaticResource DictionaryKeyToValueConverter}, ConverterParameter=ConfigurationBtn}"                    
                     HorizontalAlignment="Left" 
                     Height="51" 
                     Margin="10" 
