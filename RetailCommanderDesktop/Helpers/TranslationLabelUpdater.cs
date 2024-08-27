@@ -35,6 +35,11 @@ namespace RetailCommanderDesktop.Helpers
         {
             _labels["ConfigurationBtn"] = _translationManager.GetTranslation("ConfigurationBtn");
             _labels["LanguageLabel"] = _translationManager.GetTranslation("LanguageLabel");
+            _labels["RemainingDaysInMonth"] = _translationManager.GetTranslation("RemainingDaysInMonth");
+            _labels["CurrentCommissionStage"] = _translationManager.GetTranslation("CurrentCommissionStage");
+            _labels["NextCommissionStage"] = _translationManager.GetTranslation("NextCommissionStage");
+            _labels["RemainingAmount"] = _translationManager.GetTranslation("RemainingAmount");
+            _labels["DailyTarget"] = _translationManager.GetTranslation("DailyTarget");
             OnPropertyChanged(nameof(Labels));
         }
     }

@@ -197,7 +197,8 @@ namespace RetailCommanderDesktop.ViewModels
                     OnPropertyChanged();
                     OnLanguageChanged(_selectedLanguage);                   
                     LoadTranslations();
-                    
+                    _mainWindowViewModel.LoadCommissionStageInfo();
+
                 }
             }
         }

@@ -89,10 +89,10 @@
                        FontSize="16" 
                        HorizontalAlignment="Center" />
 
-            <TextBlock Text="{Binding RemainingDaysInMonth, StringFormat=' {0} days to go this month!'}" 
-                       Foreground="Black" 
-                       FontSize="16" 
-                       HorizontalAlignment="Center" />
+            <TextBlock Text="{Binding FormattedRemainingDaysInMonth}" 
+            Foreground="Black" 
+            FontSize="16" 
+            HorizontalAlignment="Center" />
 
             <Grid Margin="0,10,0,10">
                 <Grid.ColumnDefinitions>
@@ -102,8 +102,8 @@
 
                 <StackPanel Grid.Column="0" 
                             VerticalAlignment="Center">
-
-                    <TextBlock Text="Monatsziel:" 
+                    
+                    <TextBlock Text="{Binding FormattedMonthlyTarget}" 
                                Foreground="Black" 
                                FontSize="14" />
 
@@ -117,7 +117,7 @@
                             VerticalAlignment="Center" 
                             HorizontalAlignment="Right">
 
-                    <TextBlock Text="Aktueller Umsatz:" 
+                    <TextBlock Text="{Binding FormattedCurrentSales}" 
                                Foreground="Black" 
                                FontSize="14" />
 
@@ -146,25 +146,25 @@
                       Height="200">
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="First Name" 
+                    <DataGridTextColumn Header="{Binding Labels, Converter={StaticResource DictionaryKeyToValueConverter}, ConverterParameter=FirstName}" 
                                         Binding="{Binding FirstName}" 
                                         Width="*" />
 
-                    <DataGridTextColumn Header="Last Name" 
+                    <DataGridTextColumn Header="{Binding Labels, Converter={StaticResource DictionaryKeyToValueConverter}, ConverterParameter=LastName}" 
                                         Binding="{Binding LastName}" 
                                         Width="*" />
 
-                    <DataGridTextColumn Header="Hours per week" 
+                    <DataGridTextColumn Header="{Binding Labels, Converter={StaticResource DictionaryKeyToValueConverter}, ConverterParameter=HoursPerWeek}" 
                                         Binding="{Binding HoursPerWeek}" 
                                         Width="*" />
 
-                    <DataGridTextColumn Header="Commission" 
+                    <DataGridTextColumn Header="{Binding Labels, Converter={StaticResource DictionaryKeyToValueConverter}, ConverterParameter=Commission}" 
                                         Binding="{Binding Commission}" 
                                         Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
 
-            <TextBlock Text="Commission Overview" 
+            <TextBlock Text="{Binding FormattedCommissionOverview}" 
                        Foreground="Black" 
                        FontSize="16" 
                        FontWeight="Bold" 
@@ -177,21 +177,21 @@
                     Padding="10">
 
                 <StackPanel>
-                    <TextBlock Text="{Binding CurrentCommissionStage, StringFormat='Current commission stage: {0}'}" 
-                               Foreground="Black" 
-                               FontSize="14" />
+                    <TextBlock Text="{Binding FormattedCurrentCommissionStage}" 
+            Foreground="Black" 
+            FontSize="14" />
 
-                    <TextBlock Text="{Binding NextCommissionStage, StringFormat='Next commission stage: {0}'}" 
-                               Foreground="Black" 
-                               FontSize="14" />
+                    <TextBlock Text="{Binding FormattedNextCommissionStage}" 
+            Foreground="Black" 
+            FontSize="14" />
 
-                    <TextBlock Text="{Binding RemainingAmount, StringFormat='Required turnover until the next level: {0:C}'}" 
-                               Foreground="Black" 
-                               FontSize="14"/>
+                    <TextBlock Text="{Binding FormattedRemainingAmount}" 
+            Foreground="Black" 
+            FontSize="14"/>
 
-                    <TextBlock Text="{Binding DailyTarget, StringFormat='Daily goal required to achieve it: {0:C}'}" 
-                               Foreground="Black" 
-                               FontSize="14"/>
+                    <TextBlock Text="{Binding FormattedDailyTarget}" 
+            Foreground="Black" 
+            FontSize="14"/>
                 </StackPanel>
             </Border>
         </StackPanel>

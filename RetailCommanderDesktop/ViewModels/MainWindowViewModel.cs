@@ -54,6 +54,7 @@ namespace RetailCommanderDesktop.ViewModels
             {
                 _currentCommissionStage = value;
                 OnPropertyChanged();
+                UpdateFormattedTexts();
             }
         }
 
@@ -64,6 +65,7 @@ namespace RetailCommanderDesktop.ViewModels
             {
                 _nextCommissionStage = value;
                 OnPropertyChanged();
+                UpdateFormattedTexts();
             }
         }
 
@@ -74,6 +76,7 @@ namespace RetailCommanderDesktop.ViewModels
             {
                 _remainingAmount = value;
                 OnPropertyChanged();
+                UpdateFormattedTexts();
             }
         }
         public double DailyTarget
@@ -83,6 +86,7 @@ namespace RetailCommanderDesktop.ViewModels
             {
                 _dailyTarget = value;
                 OnPropertyChanged();
+                UpdateFormattedTexts();
             }
         }
 
@@ -106,6 +110,27 @@ namespace RetailCommanderDesktop.ViewModels
             }
         }
 
+        public string FormattedCurrentCommissionStage => string.Format(_translationManager.GetTranslation("CurrentCommissionStage"), CurrentCommissionStage);
+        public string FormattedNextCommissionStage => string.Format(_translationManager.GetTranslation("NextCommissionStage"), NextCommissionStage);
+        public string FormattedRemainingAmount => string.Format(_translationManager.GetTranslation("RemainingAmount"), RemainingAmount);
+        public string FormattedDailyTarget => string.Format(_translationManager.GetTranslation("DailyTarget"), DailyTarget);
+        public string FormattedRemainingDaysInMonth => string.Format(_translationManager.GetTranslation("RemainingDaysInMonth"), RemainingDaysInMonth);
+        public string FormattedMonthlyTarget => _translationManager.GetTranslation("MonthlyTarget");
+        public string FormattedCurrentSales => _translationManager.GetTranslation("CurrentSales");
+        public string FormattedCommissionOverview => _translationManager.GetTranslation("CommissionOverview");
+
+        private void UpdateFormattedTexts()
+        {
+            OnPropertyChanged(nameof(FormattedCurrentCommissionStage));
+            OnPropertyChanged(nameof(FormattedNextCommissionStage));
+            OnPropertyChanged(nameof(FormattedRemainingAmount));
+            OnPropertyChanged(nameof(FormattedDailyTarget));
+            OnPropertyChanged(nameof(FormattedRemainingDaysInMonth));
+            OnPropertyChanged(nameof(FormattedMonthlyTarget));
+            OnPropertyChanged(nameof(FormattedCurrentSales));
+            OnPropertyChanged(nameof(FormattedCommissionOverview));
+        }
+
         private void UpdateDateInfo()
         {
             CurrentDate = DateTime.Now.ToString("dd.MM.yyyy");
@@ -121,7 +146,7 @@ namespace RetailCommanderDesktop.ViewModels
 
             if (currentStage == null)
             {
-                CurrentCommissionStage = "No stage reached.";
+                CurrentCommissionStage = _translationManager.GetTranslation("NoStageReached");
                 nextStage = stages.OrderBy(s => s.TargetAmount).FirstOrDefault();
             }
             else
@@ -138,17 +163,18 @@ namespace RetailCommanderDesktop.ViewModels
             }
             else if (currentStage != null)
             {
-                NextCommissionStage = "Highest stage reached.";
+                NextCommissionStage = _translationManager.GetTranslation("HighestStageReached");
                 RemainingAmount = 0;
                 DailyTarget = 0;
             }
             else
             {
-                NextCommissionStage = "No stages available.";
+                NextCommissionStage = _translationManager.GetTranslation("NoStagesAvailable");
                 RemainingAmount = 0;
                 DailyTarget = 0;
             }
         }
+
 
         public MainWindowViewModel(SqliteData dataAccess, IConfiguration config, ITranslationManager translationManager)
         {
@@ -175,6 +201,7 @@ namespace RetailCommanderDesktop.ViewModels
             _translationLabelUpdater.UpdateLabels();
 
             InitializeTranslations();
+            UpdateFormattedTexts();
         }
 
         private void InitializeTranslations()
@@ -235,6 +262,7 @@ namespace RetailCommanderDesktop.ViewModels
         private void AddInitialTranslations()
         {
             //_translationManager.SaveTranslation("LanguageLabel", "DE", "Sprache");
+
         }
 
         public double SalesProgress => ConfigurationFormViewModel.SalesProgress;
