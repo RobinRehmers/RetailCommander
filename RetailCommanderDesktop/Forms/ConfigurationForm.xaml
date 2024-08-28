@@ -31,14 +31,14 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Employee / Goal configuration" 
+        <TextBlock Text="{Binding Labels[Employee / Goalconfiguration]}" 
                    Grid.ColumnSpan="4" 
                    FontWeight="Bold" 
                    Margin="133,0,0,0" 
                    HorizontalAlignment="Left" 
                    VerticalAlignment="Center" Height="16" Width="173" />
 
-        <Button Content="Add Employee" 
+        <Button Content="{Binding Labels[AddEmployee]}" 
                 Grid.Row="1" 
                 Command="{Binding AddEmployeeCommand}" 
                 HorizontalAlignment="Left" 
@@ -48,7 +48,7 @@
                 Margin="100,6,0,0" 
                 Grid.Column="3" />
 
-        <Button Content="Delete Employee" 
+        <Button Content="{Binding Labels[DeleteEmployee]}"
                 Grid.Row="2" 
                 Command="{Binding DeleteEmployeeCommand}" 
                 HorizontalAlignment="Left" 
@@ -58,7 +58,7 @@
                 Margin="100,0,0,0" 
                 Grid.Column="3" />
 
-        <TextBlock Text="Monthly Target:" 
+        <TextBlock Text="{Binding Labels[MonthlyTarget]}"
                    Grid.Row="1" 
                    Margin="10,0,53,0" 
                    VerticalAlignment="Center" Height="16" />
@@ -70,7 +70,7 @@
                  HorizontalAlignment="Left" 
                  Width="100" />
 
-        <TextBlock Text="Current Sales:" 
+        <TextBlock Text="{Binding Labels[CurrentSales]}"
                    Grid.Row="2" 
                    Margin="10,0,0,0" 
                    HorizontalAlignment="Left" 
@@ -87,13 +87,13 @@
                     Grid.Row="3" 
                     Grid.ColumnSpan="4" Grid.RowSpan="2">
 
-            <TextBlock Text="Commission Stages" 
+            <TextBlock Text="{Binding Labels[CommissionStages]}"
                        FontWeight="Bold" 
                        Margin="0,20,0,20" 
                        HorizontalAlignment="Center" 
                        VerticalAlignment="Top" />
 
-            <Button Content="Delete selected commission stage" 
+            <Button Content="{Binding Labels[DeleteSelectedCommissionStage]}" 
                     Command="{Binding DeleteCommissionStageCommand}" 
                     Width="236" 
                     HorizontalAlignment="Right" 
@@ -102,40 +102,56 @@
 
             <ListView ItemsSource="{Binding CommissionStages}" 
                       SelectedItem="{Binding SelectedCommissionStage, Mode=TwoWay}" 
-                      Height="163" 
+                      Height="151" 
                       Width="236" 
                       HorizontalAlignment="Right">
 
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Target Amount" 
-                                        DisplayMemberBinding="{Binding TargetAmount}" />
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Target Amount" 
+                                    DisplayMemberBinding="{Binding TargetAmount}" />
 
-                        <GridViewColumn Header="Commission Percentage" 
-                                        DisplayMemberBinding="{Binding CommissionPercentage}" />
-                    </GridView>
+                    <GridViewColumn Header="Commission Percentage" 
+                                    DisplayMemberBinding="{Binding CommissionPercentage}" />
+                </GridView>
                 </ListView.View>
             </ListView>
         </StackPanel>
 
-        <StackPanel Margin="10,67,10,35" 
-                    Grid.Row="3">
+        <StackPanel    Margin="10,67,10,35" 
+                       Grid.Row="3">
 
-            <Button Content="Add Commission Stage" 
-                    Command="{Binding AddCommissionStageCommand}" 
-                    Width="132" 
-                    HorizontalAlignment="Left" 
-                    Margin="0,0,0,5" />
+            <Button    Content="{Binding Labels[AddCommissionStage]}" 
+                       Command="{Binding AddCommissionStageCommand}" 
+                       Width="130" 
+                       HorizontalAlignment="Left" 
+                       Margin="0,0,0,5" />
 
-            <TextBox Text="{Binding NewTargetAmount, UpdateSourceTrigger=PropertyChanged}" 
-                     Margin="0,0,0,5" 
-                     Width="80" 
-                     HorizontalAlignment="Left" />
+            <TextBlock Text="{Binding Labels[NewCommissionStageTarget]}"
+                       VerticalAlignment="Center" 
+                       Margin="0,10,5,0" 
+                       Grid.Row="0" 
+                       Grid.Column="0" />
 
-            <TextBox Text="{Binding NewCommissionPercentage, UpdateSourceTrigger=PropertyChanged}" 
-                     Margin="0,0,0,5" 
-                     Width="80" 
-                     HorizontalAlignment="Left" />
+            <TextBox   Text="{Binding NewTargetAmount, UpdateSourceTrigger=PropertyChanged}" 
+                       Margin="0,0,0,5" 
+                       Width="75" 
+                       HorizontalAlignment="Left" 
+                       Grid.Row="0" 
+                       Grid.Column="1" />
+
+            <TextBlock Text="{Binding Labels[NewCommissionStagePercentage]}" 
+                        VerticalAlignment="Center" 
+                        Margin="0,10,5,0" 
+                        Grid.Row="1" 
+                        Grid.Column="0" />
+            
+            <TextBox    Text="{Binding NewCommissionPercentage, UpdateSourceTrigger=PropertyChanged}" 
+                        Margin="0,0,0,5" 
+                        Width="75" 
+                        HorizontalAlignment="Left" 
+                        Grid.Row="1" 
+                        Grid.Column="1" />
         </StackPanel>
 
         <StackPanel Margin="10,67,10,35" 

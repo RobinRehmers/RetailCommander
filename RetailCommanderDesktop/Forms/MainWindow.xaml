@@ -146,19 +146,19 @@
                       Height="200">
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{Binding Labels, Converter={StaticResource DictionaryKeyToValueConverter}, ConverterParameter=FirstName}" 
+                    <DataGridTextColumn Header="First Name" 
                                         Binding="{Binding FirstName}" 
                                         Width="*" />
 
-                    <DataGridTextColumn Header="{Binding Labels, Converter={StaticResource DictionaryKeyToValueConverter}, ConverterParameter=LastName}" 
+                    <DataGridTextColumn Header="Last Name" 
                                         Binding="{Binding LastName}" 
                                         Width="*" />
 
-                    <DataGridTextColumn Header="{Binding Labels, Converter={StaticResource DictionaryKeyToValueConverter}, ConverterParameter=HoursPerWeek}" 
+                    <DataGridTextColumn Header="Hours per week" 
                                         Binding="{Binding HoursPerWeek}" 
                                         Width="*" />
 
-                    <DataGridTextColumn Header="{Binding Labels, Converter={StaticResource DictionaryKeyToValueConverter}, ConverterParameter=Commission}" 
+                    <DataGridTextColumn Header="Commission" 
                                         Binding="{Binding Commission}" 
                                         Width="*" />
                 </DataGrid.Columns>

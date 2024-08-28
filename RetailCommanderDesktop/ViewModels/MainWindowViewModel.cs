@@ -118,9 +118,11 @@ namespace RetailCommanderDesktop.ViewModels
         public string FormattedMonthlyTarget => _translationManager.GetTranslation("MonthlyTarget");
         public string FormattedCurrentSales => _translationManager.GetTranslation("CurrentSales");
         public string FormattedCommissionOverview => _translationManager.GetTranslation("CommissionOverview");
-
+        public string FormattedNextCommissionStageDetail => string.Format(_translationManager.GetTranslation("NextCommissionStageDetail"), NextCommissionStage);
+        
         private void UpdateFormattedTexts()
         {
+            OnPropertyChanged(nameof(FormattedNextCommissionStageDetail));
             OnPropertyChanged(nameof(FormattedCurrentCommissionStage));
             OnPropertyChanged(nameof(FormattedNextCommissionStage));
             OnPropertyChanged(nameof(FormattedRemainingAmount));
@@ -129,6 +131,7 @@ namespace RetailCommanderDesktop.ViewModels
             OnPropertyChanged(nameof(FormattedMonthlyTarget));
             OnPropertyChanged(nameof(FormattedCurrentSales));
             OnPropertyChanged(nameof(FormattedCommissionOverview));
+
         }
 
         private void UpdateDateInfo()
@@ -159,7 +162,7 @@ namespace RetailCommanderDesktop.ViewModels
                 RemainingAmount = nextStage.TargetAmount - CurrentSales;
                 var remainingDays = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month) - DateTime.Now.Day;
                 DailyTarget = RemainingAmount / remainingDays;
-                NextCommissionStage = $"{nextStage.CommissionPercentage}% commission is unlocked at {nextStage.TargetAmount}€ turnover";
+                NextCommissionStage = $"{nextStage.CommissionPercentage}% " + string.Format(_translationManager.GetTranslation("NextCommissionStageDetail"), nextStage.TargetAmount);
             }
             else if (currentStage != null)
             {
@@ -203,6 +206,8 @@ namespace RetailCommanderDesktop.ViewModels
             InitializeTranslations();
             UpdateFormattedTexts();
         }
+
+      
 
         private void InitializeTranslations()
         {
@@ -262,7 +267,7 @@ namespace RetailCommanderDesktop.ViewModels
         private void AddInitialTranslations()
         {
             //_translationManager.SaveTranslation("LanguageLabel", "DE", "Sprache");
-
+           
         }
 
         public double SalesProgress => ConfigurationFormViewModel.SalesProgress;
