@@ -48,6 +48,7 @@ namespace RetailCommanderDesktop.Helpers
             _labels["Commission"] = _translationManager.GetTranslation("Commission");
 
             //configwindow
+            _labels["Language"] = _translationManager.GetTranslation("Language");
             _labels["ConfigurationFormWindowTitle"] = _translationManager.GetTranslation("ConfigurationFormWindowTitle");
             _labels["EmployeeGoalConfiguration"] = _translationManager.GetTranslation("EmployeeGoalConfiguration");
             _labels["CommissionStages"] = _translationManager.GetTranslation("CommissionStages");

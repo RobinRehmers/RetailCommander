@@ -11,10 +11,7 @@
         ResizeMode="NoResize" 
         WindowStartupLocation="CenterScreen" 
         WindowStyle="ToolWindow" Topmost="True">
-    <Window.Resources>
-        <local:DictionaryKeyToValueConverter x:Key="DictionaryKeyToValueConverter" />
-    </Window.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" MinWidth="152" />
@@ -158,7 +155,7 @@
                     Grid.Row="4">
 
             <Label  x:Name="LanguageLabel" 
-                    Content="{Binding Labels, Converter={StaticResource DictionaryKeyToValueConverter}, ConverterParameter=LanguageLabel}" 
+                    Content="{Binding Labels[LanguageLabel]}" 
                     HorizontalAlignment="Left" 
                     Margin="10" 
                     Height="24" 
