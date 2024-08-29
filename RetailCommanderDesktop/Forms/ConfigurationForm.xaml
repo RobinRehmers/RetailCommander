@@ -155,10 +155,10 @@
                     Grid.Row="4">
 
             <Label  x:Name="LanguageLabel" 
-                    Content="{Binding Labels[LanguageLabel]}" 
+                    Content="{Binding Labels[Language]}" 
                     HorizontalAlignment="Left" 
                     Margin="10" 
-                    Height="24" 
+                    Height="26" 
                     Width="97" />
 
 
