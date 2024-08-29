@@ -8,13 +8,15 @@ namespace RetailCommanderDesktop.Forms
     {
         private readonly SqliteData _dataAccess;
         private readonly ConfigurationFormViewModel _configurationFormViewModel;
+        private readonly ITranslationManager _translationManager;
 
-        public DeleteEmployeeForm(SqliteData dataAccess, ConfigurationFormViewModel configurationFormViewModel)
+        public DeleteEmployeeForm(SqliteData dataAccess, ConfigurationFormViewModel configurationFormViewModel, ITranslationManager translationManager)
         {
             InitializeComponent();
             _dataAccess = dataAccess;
             _configurationFormViewModel = configurationFormViewModel;
-            var viewModel = new DeleteEmployeeViewModel(_dataAccess, _configurationFormViewModel);
+            _translationManager = translationManager;
+            var viewModel = new DeleteEmployeeViewModel(_dataAccess, _configurationFormViewModel, _translationManager);
             viewModel.ShowMessage += ShowMessage;
             viewModel.CloseWindow += CloseWindow;
             DataContext = viewModel;

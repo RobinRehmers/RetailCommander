@@ -6,10 +6,12 @@ namespace RetailCommanderDesktop.Forms
 {
     public partial class AddEmployeeForm : Window
     {
-        public AddEmployeeForm(SqliteData dataAccess, ConfigurationFormViewModel configurationFormViewModel)
+        private readonly ITranslationManager _translationManager;
+        public AddEmployeeForm(SqliteData dataAccess, ConfigurationFormViewModel configurationFormViewModel, ITranslationManager translationManager)
         {
             InitializeComponent();
-            DataContext = new AddEmployeeFormViewModel(dataAccess, configurationFormViewModel);
+            _translationManager = translationManager;
+            DataContext = new AddEmployeeFormViewModel(dataAccess, configurationFormViewModel, _translationManager);
         }
     }
 }

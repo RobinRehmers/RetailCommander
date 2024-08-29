@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RetailCommanderDesktop.Helpers"
         mc:Ignorable="d"
-        Title="Configuration" 
+        Title="{Binding Labels[ConfigurationFormWindowTitle]}" 
         Height="550" 
         Width="450" 
         ResizeMode="NoResize" 

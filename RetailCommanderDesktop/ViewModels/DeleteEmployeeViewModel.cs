@@ -7,6 +7,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using RetailCommanderDesktop.Forms;
+using RetailCommanderDesktop.Helpers;
+using System.ComponentModel;
 
 namespace RetailCommanderDesktop.ViewModels
 {
@@ -15,6 +17,9 @@ namespace RetailCommanderDesktop.ViewModels
         private readonly SqliteData _dataAccess;
         private readonly ConfigurationForm _configurationForm;
         private ConfigurationFormViewModel _configurationFormViewModel;
+        private readonly ITranslationManager _translationManager;
+        private readonly TranslationLabelUpdater _translationLabelUpdater;
+        public IReadOnlyDictionary<string, string> Labels => _translationLabelUpdater.Labels;
 
         public ObservableCollection<EmployeeModel> Employees { get; set; }
         public ICommand DeleteSelectedEmployeesCommand { get; }
@@ -30,12 +35,25 @@ namespace RetailCommanderDesktop.ViewModels
             DeleteSelectedEmployeesCommand = new RelayCommand(DeleteSelectedEmployees);
         }
 
-        public DeleteEmployeeViewModel(SqliteData dataAccess, ConfigurationFormViewModel configurationFormViewModel)
+        public DeleteEmployeeViewModel(SqliteData dataAccess, ConfigurationFormViewModel configurationFormViewModel, ITranslationManager translationManager)
         {
             _dataAccess = dataAccess;
             _configurationFormViewModel = configurationFormViewModel;
+            _translationManager = translationManager;
+
+            _translationLabelUpdater = new TranslationLabelUpdater(translationManager);
+            _translationLabelUpdater.PropertyChanged += TranslationLabelUpdater_PropertyChanged;
+            _translationLabelUpdater.UpdateLabels();
+
             Employees = new ObservableCollection<EmployeeModel>(LoadEmployeeData());
             DeleteSelectedEmployeesCommand = new RelayCommand(DeleteSelectedEmployees);
+        }
+        private void TranslationLabelUpdater_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(TranslationLabelUpdater.Labels))
+            {
+                OnPropertyChanged(nameof(Labels));
+            }
         }
 
         private List<EmployeeModel> LoadEmployeeData()

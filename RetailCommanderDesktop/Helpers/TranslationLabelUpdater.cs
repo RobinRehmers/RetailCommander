@@ -48,6 +48,7 @@ namespace RetailCommanderDesktop.Helpers
             _labels["Commission"] = _translationManager.GetTranslation("Commission");
 
             //configwindow
+            _labels["ConfigurationFormWindowTitle"] = _translationManager.GetTranslation("ConfigurationFormWindowTitle");
             _labels["EmployeeGoalConfiguration"] = _translationManager.GetTranslation("EmployeeGoalConfiguration");
             _labels["CommissionStages"] = _translationManager.GetTranslation("CommissionStages");
             _labels["MonthlyTarget"] = _translationManager.GetTranslation("MonthlyTarget");
@@ -60,10 +61,14 @@ namespace RetailCommanderDesktop.Helpers
             _labels["DeleteSelectedCommissionStage"] = _translationManager.GetTranslation("DeleteSelectedCommissionStage");
 
             // addemployeeform
+            _labels["AddEmployeeFormWindowTitle"] = _translationManager.GetTranslation("AddEmployeeFormWindowTitle");
             _labels["FirstName"] = _translationManager.GetTranslation("FirstName");
             _labels["LastName"] = _translationManager.GetTranslation("LastName");
             _labels["HoursPerWeek"] = _translationManager.GetTranslation("HoursPerWeek");
             _labels["AddNewEmployee"] = _translationManager.GetTranslation("AddNewEmployee");
+
+            //deleteemployeeform
+            _labels["DeleteSelectedEmployees"] = _translationManager.GetTranslation("DeleteSelectedEmployees");
 
             OnPropertyChanged(nameof(Labels));
         }

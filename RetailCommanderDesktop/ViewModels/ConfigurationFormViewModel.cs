@@ -333,13 +333,13 @@ namespace RetailCommanderDesktop.ViewModels
 
         private void OpenAddEmployeeForm(object parameter)
         {
-            var addEmployeeForm = new AddEmployeeForm(_dataAccess, this);
+            var addEmployeeForm = new AddEmployeeForm(_dataAccess, this, _translationManager);
             addEmployeeForm.Show();
         }
 
         private void OpenDeleteEmployeeForm(object parameter)
         {
-            var deleteEmployeeForm = new DeleteEmployeeForm(_dataAccess, this);
+            var deleteEmployeeForm = new DeleteEmployeeForm(_dataAccess, this, _translationManager);
             deleteEmployeeForm.ShowDialog();
         }
 
