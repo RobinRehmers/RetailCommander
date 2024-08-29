@@ -24,19 +24,12 @@
             <ColumnDefinition Width="96*" />
         </Grid.ColumnDefinitions>
 
-        <Label Content="First Name:" 
+        <Label Content="{Binding Labels[FirstName]}" 
                HorizontalAlignment="Left" 
                Height="30" 
                Margin="10,15,0,0" 
                VerticalAlignment="Top" 
                Width="79" />
-
-        <Label Content="Hours:" 
-               HorizontalAlignment="Left" 
-               Height="26" 
-               Margin="11,81,0,0" 
-               VerticalAlignment="Top" 
-               Width="50" />
 
         <TextBox x:Name="firstnamebox" 
                  HorizontalAlignment="Left" 
@@ -47,6 +40,26 @@
                  Width="157" 
                  Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" 
                  TabIndex="0" />
+
+        <Label Content="{Binding Labels[LastName]}" 
+               HorizontalAlignment="Left" 
+               Height="23" 
+               Margin="11,47,0,0" 
+               VerticalAlignment="Top" 
+               Width="72" />
+
+        <TextBox x:Name="lastnamebox" 
+                 TextWrapping="Wrap" 
+                 Margin="88,50,0,184" 
+                 Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" 
+                 TabIndex="1" />
+
+        <Label Content="{Binding Labels[HoursPerWeek]}" 
+               HorizontalAlignment="Left" 
+               Height="26" 
+               Margin="11,81,0,0" 
+               VerticalAlignment="Top" 
+               Width="50" />
 
         <TextBox x:Name="hoursbox" 
                  HorizontalAlignment="Left" 
@@ -59,7 +72,7 @@
                  TabIndex="2" />
 
         <Button x:Name="AddEmployee" 
-                Content="Add new employee" 
+                Content="{Binding Labels[AddEmployee]}" 
                 HorizontalAlignment="Left" 
                 Height="25" 
                 Margin="17,129,0,0" 
@@ -67,18 +80,5 @@
                 Width="226" 
                 Command="{Binding AddEmployeeCommand}" 
                 TabIndex="3" />
-
-        <TextBox x:Name="lastnamebox" 
-                 TextWrapping="Wrap" 
-                 Margin="88,50,0,184" 
-                 Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" 
-                 TabIndex="1" />
-
-        <Label Content="Last Name:" 
-               HorizontalAlignment="Left" 
-               Height="23" 
-               Margin="11,47,0,0" 
-               VerticalAlignment="Top" 
-               Width="72" />
     </Grid>
 </Window>

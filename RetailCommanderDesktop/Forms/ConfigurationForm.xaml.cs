@@ -17,9 +17,8 @@ namespace RetailCommanderDesktop.Forms
             InitializeComponent();
             _dataAccess = dataAccess;
             _mainWindowViewModel = mainWindowViewModel;
-           // _mainWindowViewModel.ConfigurationFormViewModel.SelectedLanguage = "EN"; // Default language
 
-            // Subscribe to language change events to update label content
+            //we subscribe to language change events to update label content
             _mainWindowViewModel.ConfigurationFormViewModel.PropertyChanged += ConfigurationFormViewModel_PropertyChanged;
             DataContext = _mainWindowViewModel.ConfigurationFormViewModel;
         }

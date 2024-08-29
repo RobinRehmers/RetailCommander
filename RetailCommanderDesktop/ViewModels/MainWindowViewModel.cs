@@ -194,7 +194,7 @@ namespace RetailCommanderDesktop.ViewModels
             LoadEmployees(null);
             LoadCommissionStageInfo();
             UpdateDateInfo();
-            //AddInitialTranslations();
+            AddInitialTranslations();
 
             ConfigurationFormViewModel.PropertyChanged += ConfigurationFormViewModel_PropertyChanged;
             ConfigurationFormViewModel.CalculateAndDistributeCommissions();
@@ -267,7 +267,7 @@ namespace RetailCommanderDesktop.ViewModels
         private void AddInitialTranslations()
         {
             //_translationManager.SaveTranslation("LanguageLabel", "DE", "Sprache");
-           
+
         }
 
         public double SalesProgress => ConfigurationFormViewModel.SalesProgress;

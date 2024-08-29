@@ -58,6 +58,13 @@ namespace RetailCommanderDesktop.Helpers
             _labels["DeleteEmployee"] = _translationManager.GetTranslation("DeleteEmployee");
             _labels["AddCommissionStage"] = _translationManager.GetTranslation("AddCommissionStage");
             _labels["DeleteSelectedCommissionStage"] = _translationManager.GetTranslation("DeleteSelectedCommissionStage");
+
+            // addemployeeform
+            _labels["FirstName"] = _translationManager.GetTranslation("FirstName");
+            _labels["LastName"] = _translationManager.GetTranslation("LastName");
+            _labels["HoursPerWeek"] = _translationManager.GetTranslation("HoursPerWeek");
+            _labels["AddNewEmployee"] = _translationManager.GetTranslation("AddNewEmployee");
+
             OnPropertyChanged(nameof(Labels));
         }
     }
