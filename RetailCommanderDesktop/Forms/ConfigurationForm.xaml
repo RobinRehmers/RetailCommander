@@ -45,7 +45,7 @@
                 VerticalAlignment="Top" 
                 Width="132" 
                 Height="20" 
-                Margin="100,6,0,0" 
+                Margin="60,6,0,0" 
                 Grid.Column="3" />
 
         <Button Content="{Binding Labels[DeleteEmployee]}"
@@ -55,7 +55,7 @@
                 VerticalAlignment="Center" 
                 Width="132" 
                 Height="20" 
-                Margin="100,0,0,0" 
+                Margin="60,0,0,0" 
                 Grid.Column="3" />
 
         <TextBlock Text="{Binding Labels[MonthlyTarget]}"
@@ -123,7 +123,7 @@
 
             <Button    Content="{Binding Labels[AddCommissionStage]}" 
                        Command="{Binding AddCommissionStageCommand}" 
-                       Width="130" 
+                       Width="150" 
                        HorizontalAlignment="Left" 
                        Margin="0,0,0,5" />
 
